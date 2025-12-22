@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Ignore other pages for deployment (keep only home and about)
+src/app/blogs/
+src/app/contact/
+src/app/packages/
+src/app/places/
+src/app/privacy-policy/
+src/app/terms-and-conditions/
