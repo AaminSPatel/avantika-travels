@@ -1,11 +1,16 @@
 "use client"
 
+import { useState, useRef } from "react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { FiFacebook, FiInstagram, FiTwitter, FiYoutube, FiMail, FiMapPin, FiPhone } from "react-icons/fi"
 import { useSite } from "@/context/site-context"
 
 export default function Footer() {
   const { siteData } = useSite()
+  const router = useRouter()
+  const [tapCount, setTapCount] = useState(0)
+  const tapTimeoutRef = useRef(null)
 
   const quickLinks = [
     { name: "About Us", href: "/about" },
@@ -20,6 +25,23 @@ export default function Footer() {
     { name: "Indore", href: "/places/indore" },
     { name: "Dewas", href: "/places/dewas" },
   ]
+
+  const handleSecretTap = () => {
+    setTapCount(prev => prev + 1)
+
+    if (tapTimeoutRef.current) {
+      clearTimeout(tapTimeoutRef.current)
+    }
+
+    tapTimeoutRef.current = setTimeout(() => {
+      setTapCount(0)
+    }, 2000) // Reset after 2 seconds
+
+    if (tapCount + 1 >= 5) {
+      router.push('/admin/login')
+      setTapCount(0)
+    }
+  }
 
   return (
     <footer className="bg-foreground text-white">
@@ -148,6 +170,13 @@ export default function Footer() {
           </div>
         </div>
       </div>
+
+      {/* Secret admin access for mobile - tap 5 times */}
+      <div
+        onClick={handleSecretTap}
+        className="fixed bottom-0 right-0 w-4 h-4 opacity-0 cursor-pointer"
+        style={{ zIndex: -1 }}
+      />
     </footer>
   )
 }

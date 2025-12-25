@@ -11,7 +11,7 @@ export default function PageHeader({ title, subtitle, backgroundImage }) {
           style={{ backgroundImage: `url(${backgroundImage})` }}
         />
       )}
-      <div className="absolute inset-0 bg-gradient-to-b from-foreground/80 to-foreground" />
+      <div className="absolute inset-0  from-foreground/80 to-foreground" />
 
       <div className="container mx-auto px-4 relative z-10 text-center">
         <motion.h1

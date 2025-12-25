@@ -8,11 +8,11 @@ import { useSite } from "@/context/site-context"
 
 const navLinks = [
   { name: "Home", href: "/" },
- /*  { name: "Places", href: "/places" },
+  { name: "Places", href: "/places" },
   { name: "Packages", href: "/packages" },
-  { name: "Blogs", href: "/blogs" }, */
+  { name: "Blogs", href: "/blogs" },
   { name: "About Us", href: "/about" },
-  /* { name: "Contact", href: "/contact" }, */
+   { name: "Contact", href: "/contact" }, 
 ]
 
 export default function Header() {
@@ -66,14 +66,14 @@ export default function Header() {
           </div>
 
           {/* CTA Button */}
-         {/*  <div className="hidden lg:block">
+          <div className="hidden lg:block">
             <Link
               href="/packages"
               className="bg-primary text-white px-6 py-2.5 rounded-full font-semibold hover:bg-primary/90 transition-colors"
             >
               Book Now
             </Link>
-          </div> */}
+          </div>
 
           {/* Mobile Menu Button */}
           <button

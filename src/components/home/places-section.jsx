@@ -29,7 +29,7 @@ export default function PlacesSection() {
 
           {/* Smaller place cards */}
           {places.slice(1).map((place, index) => (
-            <PlaceCard key={place.id} place={place} index={index + 1} />
+            <PlaceCard key={place._id} place={place} index={index + 1} />
           ))}
 
           {/* Show All Card */}

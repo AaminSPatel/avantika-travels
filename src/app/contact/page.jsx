@@ -5,6 +5,7 @@ import { motion } from "framer-motion"
 import { FiPhone, FiMail, FiMapPin, FiClock, FiSend, FiCheck } from "react-icons/fi"
 import PageHeader from "@/components/ui/page-header"
 import { useSite } from "@/context/site-context"
+import axios from "axios"
 
 export default function ContactPage() {
   const { siteData } = useSite()
@@ -17,6 +18,9 @@ export default function ContactPage() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [error, setError] = useState("")
+
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -25,15 +29,19 @@ export default function ContactPage() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setError("")
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500))
-
-    setIsSubmitting(false)
-    setIsSubmitted(true)
-    setFormData({ name: "", email: "", phone: "", subject: "", message: "" })
-
-    setTimeout(() => setIsSubmitted(false), 5000)
+    try {
+      await axios.post(`${API_BASE_URL}/contacts`, formData)
+      setIsSubmitted(true)
+      setFormData({ name: "", email: "", phone: "", subject: "", message: "" })
+      setTimeout(() => setIsSubmitted(false), 5000)
+    } catch (err) {
+      console.error('Error submitting contact form:', err)
+      setError('Failed to send message. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const contactInfo = [
@@ -111,7 +119,7 @@ export default function ContactPage() {
               </div>
 
               {/* Map Placeholder */}
-              <div className="mt-8 rounded-2xl overflow-hidden h-[200px] bg-muted flex items-center justify-center">
+              <div className="mt-8 p-6 rounded-2xl overflow-hidden h-[200px] bg-muted flex items-center justify-center">
                 <div className="text-center">
                   <FiMapPin className="w-8 h-8 text-primary mx-auto mb-2" />
                   <p className="text-muted-foreground text-sm">{siteData.location}</p>
@@ -143,6 +151,11 @@ export default function ContactPage() {
                   </motion.div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-6">
+                    {error && (
+                      <div className="p-4 bg-red-50 border border-red-200 rounded-xl">
+                        <p className="text-red-600 text-sm">{error}</p>
+                      </div>
+                    )}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
                         <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">

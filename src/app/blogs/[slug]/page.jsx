@@ -33,8 +33,8 @@ export default function BlogDetailsPage({ params }) {
       {/* Hero Section */}
       <section className="relative py-20 md:py-32">
         <div className="absolute inset-0">
-          <Image src={blog.image || "/placeholder.svg"} alt={blog.title} fill className="object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30" />
+          <Image src={blog.image?.url || "/placeholder.svg"} alt={blog.title} fill className="object-cover" />
+          <div className="absolute inset-0 bg-black/50" />
         </div>
 
         <div className="container mx-auto px-4 relative z-10">

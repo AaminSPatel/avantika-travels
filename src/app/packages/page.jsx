@@ -149,7 +149,7 @@ export default function PackagesPage() {
           {/* Package Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {filteredPackages.map((pkg, index) => (
-              <PackageCard key={pkg.id} pkg={pkg} index={index} />
+              <PackageCard key={pkg._id} pkg={pkg} index={index} />
             ))}
           </div>
 

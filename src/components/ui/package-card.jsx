@@ -19,7 +19,7 @@ export default function PackageCard({ pkg, index = 0 }) {
           {/* Image */}
           <div className="relative h-52 overflow-hidden">
             <Image
-              src={pkg.image || "/placeholder.svg"}
+              src={pkg.images[0]?.url || "/placeholder.svg"}
               alt={pkg.name}
               fill
               className="object-cover group-hover:scale-110 transition-transform duration-500"
