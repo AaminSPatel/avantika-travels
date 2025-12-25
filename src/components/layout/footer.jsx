@@ -49,10 +49,16 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Company Info */}
           <div className="space-y-4">
+                    <div className="flex items-center gap-2">
+
+
+                      <img src="/logo1.png" alt="Avantika Travels logo" className="h-16 w-18 hover:scale-110 transition " />
             <h3 className="text-2xl font-bold">
               {siteData.name.split(" ")[0]}
               <span className="text-primary">{siteData.name.split(" ")[1] || ""}</span>
             </h3>
+                      </div>  
+                      
             <p className="text-gray-300 leading-relaxed">{siteData.description.slice(0, 150)}...</p>
             <div className="flex gap-4">
               <a

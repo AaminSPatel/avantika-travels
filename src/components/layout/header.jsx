@@ -42,10 +42,11 @@ export default function Header() {
       </div>
 
       {/* Main navigation */}
-      <nav className="container mx-auto px-4 py-4">
+      <nav className="container mx-auto px-4 py-2">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-1">
+          <img src="/logobg1.png" alt="Avantika Travels" className="h-10 w-10 hover:scale-110 transition " />
             <span className="text-2xl font-bold text-foreground tracking-tight">
               {siteData.name.split(" ")[0]}
               <span className="text-primary">{siteData.name.split(" ")[1] || ""}</span>
