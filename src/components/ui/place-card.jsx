@@ -66,8 +66,8 @@ export default function PlaceCard({ place, index = 0, variant = "default" }) {
                   {/* Entry fee - only show if > 0 */}
                   {place.entryFee > 0 && (
                     <div className="flex items-center gap-1.5">
-                      <FiDollarSign className="w-3.5 h-3.5" />
-                      <span>₹{place.entryFee.toLocaleString()}</span>
+                      
+                      <span>₹ {place.entryFee.toLocaleString()}</span>
                     </div>
                   )}
                 </div>

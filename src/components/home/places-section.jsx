@@ -111,7 +111,7 @@ export default function PlacesSection() {
             className="relative rounded-2xl overflow-hidden h-64"
           >
             <Link href={'/places'}>
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/90 to-secondary/90 flex items-center justify-center">
+              <div className="absolute inset-0 bg-linear-to-br from-primary to-primary/70 flex items-center justify-center object-cover" style={{backgroundImage:`url('/bg2.jpg')`}}>
                 <div className="text-center text-white p-6">
                   <p className="font-bold text-xl mb-2">Explore All</p>
                   <p className="text-sm opacity-90">+{places.length} Destinations</p>
@@ -127,7 +127,7 @@ export default function PlacesSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-gradient-to-r from-primary to-secondary rounded-2xl p-8 text-center text-white"
+          className="bg-linear-to-r from-primary to-primary/60 rounded-2xl p-8 text-center text-white"
         >
           <h3 className="text-2xl font-bold mb-4">Need Help Choosing?</h3>
           <p className="mb-6 max-w-2xl mx-auto">
