@@ -7,7 +7,7 @@ import { BsMouse } from "react-icons/bs"
 import { useSite } from "@/context/site-context"
 
 export default function HeroSection() {
-  const { siteData, places } = useSite()
+  const { siteData, places,packages } = useSite()
   const [selectedRegion, setSelectedRegion] = useState("")
   const [selectedTripType, setSelectedTripType] = useState("")
   const [isDestinationOpen, setIsDestinationOpen] = useState(false)
@@ -35,7 +35,7 @@ export default function HeroSection() {
       </div>
 
       {/* Content */}
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-4 relative z-10 mt-6">
         <div className="max-w-3xl">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -114,14 +114,14 @@ export default function HeroSection() {
                 <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl shadow-xl overflow-hidden z-20">
                   {places.map((place) => (
                     <button
-                      key={place.id}
+                      key={place._id}
                       onClick={() => {
                         setSelectedRegion(place.name)
                         setIsDestinationOpen(false)
                       }}
                       className="w-full px-6 py-3 text-left hover:bg-muted transition-colors"
                     >
-                      {place.name}
+                      {place.location}
                     </button>
                   ))}
                 </div>
@@ -139,13 +139,13 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-wrap gap-4 mt-8"
+            className="flex flex-wrap gap-3 my-3"
           >
             {tripTypes.slice(0, 4).map((type) => (
               <button
                 key={type}
                 onClick={() => setSelectedTripType(type)}
-                className="bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full hover:bg-white/30 transition-colors"
+                className="bg-white/20 backdrop-blur-sm text-white sm:px-4 sm:py-2 px-2 py-1 rounded-full hover:bg-white/30 transition-colors"
               >
                 {type}
               </button>

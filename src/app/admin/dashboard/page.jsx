@@ -170,6 +170,23 @@ export default function AdminDashboard() {
           <RefreshCw className="w-12 h-12 animate-spin text-pink-600 mx-auto mb-4" />
           <p className="text-gray-600">Page is not build yet.</p>
           <p className="text-gray-600">Loading dashboard data...</p>
+          <div className="flex gap-4 mt-4 flex-col">
+            <Link href='/admin/places' className='px-4 py-2 bg-black text-white rounded-md '>Places</Link>
+            <Link href='/admin/packages' className='px-4 py-2 bg-black text-white rounded-md '>Packages</Link>
+            <Link href='/admin/blogs' className='px-4 py-2 bg-black text-white rounded-md '>Blogs</Link>
+            <Link href='/admin/contacts' className='px-4 py-2 bg-sky-500 text-white rounded-md '>Contact</Link>
+          </div>
+        </div>
+      </div>
+    )
+  }
+ if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <RefreshCw className="w-12 h-12 animate-spin text-pink-600 mx-auto mb-4" />
+          <p className="text-gray-600">Page is not build yet.</p>
+          <p className="text-gray-600">Loading dashboard data...</p>
           <div className="flex gap-4 mt-4">
             <Link href='/admin/places' className='px-4 py-2 bg-black text-white rounded-md '>Places</Link>
             <Link href='/admin/packages' className='px-4 py-2 bg-black text-white rounded-md '>Packages</Link>

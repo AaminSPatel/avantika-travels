@@ -522,7 +522,7 @@ const allPackages = [
   }
 ]; */
 // API base URL
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api'
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'
 
 // Site configuration data
 const siteData = {
@@ -533,8 +533,8 @@ const siteData = {
   logo: "/logo.jpg",
   secondaryImage: "/pik2.avif",
   email: "info@avanikatravels.com",
-  phone: "+91 9302088025",
-  alternatePhone: "+91 87654 32109",
+  phone: "+91 8720006707",
+  alternatePhone: "+91 8720006707",
   location: "Ujjain, Madhya Pradesh, India",
   address: "123, Mahakal Road, Near Mahakal Mandir, Ujjain, MP - 456001",
   region: "Madhya Pradesh",

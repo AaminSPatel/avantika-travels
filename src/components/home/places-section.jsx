@@ -44,7 +44,7 @@ export default function PlacesSection() {
           <h3 className="text-xl font-semibold text-foreground mb-6">Featured Destination</h3>
           <div className="col-span-2 row-span-2">
             {categorizedPlaces.featured && (
-              <PlaceCard place={categorizedPlaces.featured} index={0} variant="large" />
+              <PlaceCard  key={categorizedPlaces._id}  place={categorizedPlaces.featured} index={0} variant="large" />
             )}
           </div>
         </div>
@@ -54,7 +54,7 @@ export default function PlacesSection() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
           {categorizedPlaces.popular.map((place, index) => (
             <motion.div
-              key={place.id}
+              key={place._id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
