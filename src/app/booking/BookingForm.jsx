@@ -90,7 +90,7 @@ export default function BookingForm() {
     const encodedMessage = encodeURIComponent(message)
 
     // Open WhatsApp with the message
-    const whatsappUrl = `https://wa.me/${siteData.phone.replace(/\D/g, "")}?text=${encodedMessage}`
+    const whatsappUrl = `https://wa.me/${siteData.contactInfo.phone.replace(/\D/g, "")}?text=${encodedMessage}`
     window.open(whatsappUrl, "_blank")
   }
 

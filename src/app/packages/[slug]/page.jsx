@@ -231,7 +231,7 @@ export default function PackageDetailsPage({ params }) {
                         Book Now
                       </Link>
                       <a
-                        href={`tel:${siteData.phone}`}
+                        href={`tel:${siteData.contactInfo.phone}`}
                         className="flex items-center justify-center gap-2 w-full border-2 border-primary text-primary font-semibold py-3 rounded-full hover:bg-primary hover:text-white transition-colors"
                       >
                         <FiPhone className="w-4 h-4" />
@@ -252,18 +252,18 @@ export default function PackageDetailsPage({ params }) {
                   <h4 className="font-semibold text-foreground mb-4">Need Help?</h4>
                   <div className="space-y-3 text-sm">
                     <a
-                      href={`tel:${siteData.phone}`}
+                      href={`tel:${siteData.contactInfo.phone}`}
                       className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
                     >
                       <FiPhone className="w-4 h-4" />
-                      {siteData.phone}
+                      {siteData.contactInfo.phone}
                     </a>
                     <a
-                      href={`mailto:${siteData.email}`}
+                      href={`mailto:${siteData.contactInfo.email}`}
                       className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
                     >
                       <FiMail className="w-4 h-4" />
-                      {siteData.email}
+                      {siteData.contactInfo.email}
                     </a>
                   </div>
                 </div>

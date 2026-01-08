@@ -49,13 +49,13 @@ export default function ContactPage() {
       icon: FiPhone,
       title: "Phone",
       details: [siteData.contactInfo.phone, siteData.alternatePhone],
-      link: `tel:${siteData.phone}`,
+      link: `tel:${siteData.contactInfo.phone}`,
     },
     {
       icon: FiMail,
       title: "Email",
       details: [siteData.contactInfo.email],
-      link: `mailto:${siteData.email}`,
+      link: `mailto:${siteData.contactInfo.email}`,
     },
     {
       icon: FiMapPin,

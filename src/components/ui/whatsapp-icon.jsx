@@ -11,7 +11,7 @@ export default function WhatsAppIcon() {
 
   const handleClick = () => {
     // Clean the phone number by removing non-digit characters
-    const cleanPhone = siteData.phone.replace(/\D/g, "")
+    const cleanPhone = siteData.contactInfo.phone.replace(/\D/g, "")
     const whatsappUrl = `https://wa.me/${cleanPhone}?text=Hi%20Avantika%20Travels,%20I%20need%20help%20with%20travel%20planning.`
     window.open(whatsappUrl, "_blank")
   }

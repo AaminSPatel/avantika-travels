@@ -154,22 +154,22 @@ const destinations = [
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex flex-wrap justify-center md:justify-start gap-6 text-gray-300 text-sm">
               <a
-                href={`tel:${siteData.phone}`}
+                href={`tel:${siteData.contactInfo.phone}`}
                 className="flex items-center gap-2 hover:text-primary transition-colors"
               >
                 <FiPhone className="w-4 h-4" />
-                {siteData.phone}
+                {siteData.contactInfo.phone}
               </a>
               <a
-                href={`mailto:${siteData.email}`}
+                href={`mailto:${siteData.contactInfo.email}`}
                 className="flex items-center gap-2 hover:text-primary transition-colors"
               >
                 <FiMail className="w-4 h-4" />
-                {siteData.email}
+                {siteData.contactInfo.email}
               </a>
               <span className="flex items-center gap-2">
                 <FiMapPin className="w-4 h-4" />
-                {siteData.location}
+                {siteData.contactInfo.location}
               </span>
             </div>
             <p className="text-gray-400 text-sm">

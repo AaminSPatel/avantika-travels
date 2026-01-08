@@ -26,16 +26,16 @@ export default function Header() {
       <div className="hidden md:block bg-primary text-white py-2">
         <div className="container mx-auto px-4 flex justify-between items-center text-sm">
           <div className="flex items-center gap-6">
-            <a href={`tel:${siteData.phone}`} className="flex items-center gap-2 hover:text-white/80 transition-colors">
+            <a href={`tel:${siteData.contactInfo.phone}`} className="flex items-center gap-2 hover:text-white/80 transition-colors">
               <FiPhone className="w-4 h-4" />
-              {siteData.phone}
+              {siteData.contactInfo.phone}
             </a>
             <a
-              href={`mailto:${siteData.email}`}
+              href={`mailto:${siteData.contactInfo.email}`}
               className="flex items-center gap-2 hover:text-white/80 transition-colors"
             >
               <FiMail className="w-4 h-4" />
-              {siteData.email}
+              {siteData.contactInfo.email}
             </a>
           </div>
           <div className="text-white/90">{siteData.workingHours}</div>
