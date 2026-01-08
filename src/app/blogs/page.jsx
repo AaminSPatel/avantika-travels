@@ -1,17 +1,36 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import PageHeader from "@/components/ui/page-header"
 import BlogCard from "@/components/ui/blog-card"
+import Pagination from "@/components/ui/pagination"
 import { useSite } from "@/context/site-context"
 
 export default function BlogsPage() {
   const { blogs } = useSite()
   const [selectedCategory, setSelectedCategory] = useState("All")
+  const [currentPage, setCurrentPage] = useState(1)
+  const itemsPerPage = 9
 
   const categories = ["All", ...new Set(blogs.map((blog) => blog.category))]
 
   const filteredBlogs = selectedCategory === "All" ? blogs : blogs.filter((blog) => blog.category === selectedCategory)
+
+  // Pagination logic
+  const totalItems = filteredBlogs.length
+  const startIndex = (currentPage - 1) * itemsPerPage
+  const endIndex = startIndex + itemsPerPage
+  const paginatedBlogs = filteredBlogs.slice(startIndex, endIndex)
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  // Reset to page 1 when category changes
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [selectedCategory])
 
   return (
     <>
@@ -40,10 +59,20 @@ export default function BlogsPage() {
 
           {/* Blog Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredBlogs.map((blog, index) => (
+            {paginatedBlogs.map((blog, index) => (
               <BlogCard key={blog._id} blog={blog} index={index} />
             ))}
           </div>
+
+          {/* Pagination */}
+          {totalItems > itemsPerPage && (
+            <Pagination
+              totalItems={totalItems}
+              itemsPerPage={itemsPerPage}
+              currentPage={currentPage}
+              onPageChange={handlePageChange}
+            />
+          )}
 
           {filteredBlogs.length === 0 && (
             <div className="text-center py-16">

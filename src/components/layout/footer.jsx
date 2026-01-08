@@ -11,24 +11,7 @@ export default function Footer() {
   const router = useRouter()
   const [tapCount, setTapCount] = useState(0)
   const tapTimeoutRef = useRef(null)
-
-  const quickLinks = [
-    { name: "About Us", href: "/about" },
-    { name: "Contact Us", href: "/contact" },
-    { name: "Blogs", href: "/blogs" },
-    { name: "Privacy Policy", href: "/privacy-policy" },
-    { name: "Terms & Conditions", href: "/terms-and-conditions" },
-  ]
-
-const destinations = [
-  { name: "Holiday Packages", href: "/packages?type=holiday" },
-  { name: "Adventure Trips", href: "/packages?type=adventure" },
-  { name: "Honeymoon Tours", href: "/packages?type=honeymoon" },
-  { name: "Pilgrimage Tours", href: "/packages?type=pilgrimage" },
-  { name: "Family Vacations", href: "/packages?type=family" },
-  { name: "Weekend Getaways", href: "/packages?type=weekend" },
-]
-  const handleSecretTap = () => {
+ const handleSecretTap = () => {
     setTapCount(prev => prev + 1)
 
     if (tapTimeoutRef.current) {
@@ -44,6 +27,23 @@ const destinations = [
       setTapCount(0)
     }
   }
+const quickLinks = [
+    { name: "About Us", href: "/about", title: "About Avantika Travels - Leading Travel Agency in Indore, Madhya Pradesh" },
+    { name: "Contact Us", href: "/contact", title: "Contact Avantika Travels - Get in Touch for Your Next Trip" },
+    { name: "Blogs", href: "/blogs", title: "Travel Blogs - Madhya Pradesh Tourism Guide & Travel Tips" },
+    { name: "Privacy Policy", href: "/privacy-policy", title: "Privacy Policy - Avantika Travels Data Protection" },
+    { name: "Terms & Conditions", href: "/terms-and-conditions", title: "Terms & Conditions - Avantika Travels Service Agreement" },
+  ]
+
+const destinations = [
+  { name: "Holiday Packages", href: "/packages?type=holiday", title: "Holiday Packages in Madhya Pradesh - Family & Group Tours" },
+  { name: "Adventure Trips", href: "/packages?type=adventure", title: "Adventure Trips in Madhya Pradesh - Trekking & Outdoor Activities" },
+  { name: "Honeymoon Tours", href: "/packages?type=honeymoon", title: "Romantic Honeymoon Tours in Madhya Pradesh - Couples Getaways" },
+  { name: "Pilgrimage Tours", href: "/packages?type=pilgrimage", title: "Religious Pilgrimage Tours - Sacred Sites in Madhya Pradesh" },
+  { name: "Family Vacations", href: "/packages?type=family", title: "Family Vacation Packages - Safe & Enjoyable Trips for All Ages" },
+  { name: "Weekend Getaways", href: "/packages?type=weekend", title: "Weekend Getaways from Indore - Short Trip Packages" },
+]
+ 
 
   return (
     <footer className="bg-foreground text-white">

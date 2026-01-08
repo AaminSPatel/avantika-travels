@@ -48,19 +48,19 @@ export default function ContactPage() {
     {
       icon: FiPhone,
       title: "Phone",
-      details: [siteData.phone, siteData.alternatePhone],
+      details: [siteData.contactInfo.phone, siteData.alternatePhone],
       link: `tel:${siteData.phone}`,
     },
     {
       icon: FiMail,
       title: "Email",
-      details: [siteData.email],
+      details: [siteData.contactInfo.email],
       link: `mailto:${siteData.email}`,
     },
     {
       icon: FiMapPin,
       title: "Address",
-      details: [siteData.address],
+      details: [siteData.contactInfo.address],
     },
     {
       icon: FiClock,
@@ -74,7 +74,7 @@ export default function ContactPage() {
       <PageHeader
         title="Contact Us"
         subtitle="Get in touch with us for any inquiries or to plan your perfect trip"
-        backgroundImage="/mahakaleshwar-temple-ujjain-darshan.jpg"
+        backgroundImage="/pik9.avif"
       />
 
       <section className="py-16 md:py-24 bg-white">

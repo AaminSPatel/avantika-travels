@@ -43,7 +43,7 @@ export default function AboutPage() {
       <PageHeader
         title="About Us"
         subtitle={`Your trusted travel partner for exploring ${siteData.region}`}
-        backgroundImage="/madhya-pradesh-heritage-temples-palaces.jpg"
+        backgroundImage="/pik8.avif"
       />
 
       {/* Story Section */}
@@ -80,8 +80,10 @@ export default function AboutPage() {
                 this sacred land allows us to offer authentic experiences that go beyond typical tourism.
               </p>
               <p className="text-muted-foreground leading-relaxed mb-8">
-                From arranging the sacred Bhasma Aarti at Mahakaleshwar Temple to exploring the hidden gems of Indore
-                and Dewas, we ensure every journey is memorable, comfortable, and spiritually enriching.
+                From arranging the sacred Bhasma Aarti at Mahakal Mandir to exploring the hidden gems of Indore
+                and Dewas, we ensure every journey is memorable, comfortable, and spiritually enriching. Experience
+                the divine presence at Mahakal Mandir, witness the mesmerizing evening aarti, and immerse yourself
+                in the spiritual heritage that has drawn pilgrims for centuries.
               </p>
 
               <div className="space-y-3">

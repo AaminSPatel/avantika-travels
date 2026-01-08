@@ -524,20 +524,33 @@ const allPackages = [
 // API base URL
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'
 
-// Site configuration data
-const siteData = {
+// Default site configuration data (fallback)
+const defaultSiteData = {
   name: "Avantika Travels",
   tagline: "Discover the Divine Beauty of Madhya Pradesh",
   description:
     "Experience the spiritual essence and cultural heritage of Madhya Pradesh with Avantika Travels. We specialize in pilgrimages to Mahakal Mandir and tours across Ujjain, Indore, and Dewas.",
+  keywords: [
+    "Mahakal Mandir",
+    "Ujjain travel",
+    "Madhya Pradesh pilgrimage",
+    "Indore tours",
+    "Dewas travel",
+    "spiritual tours India",
+    "Mahakal Temple Ujjain",
+    "religious tourism Madhya Pradesh",
+    "pilgrimage packages India",
+    "temple tours central India",
+    "sacred sites Madhya Pradesh"
+  ],
   logo: "/logo.jpg",
   secondaryImage: "/pik2.avif",
-  email: "info@avanikatravels.com",
+contactInfo: { email: "info@avanikatravels.com",
   phone: "+91 8720006707",
   alternatePhone: "+91 8720006707",
   location: "Ujjain, Madhya Pradesh, India",
   address: "123, Mahakal Road, Near Mahakal Mandir, Ujjain, MP - 456001",
-  region: "Madhya Pradesh",
+  region: "Madhya Pradesh"},
   mainAttraction: "Mahakal Mandir",
   socialLinks: {
     facebook: "https://facebook.com/avanikatravels",
@@ -546,6 +559,10 @@ const siteData = {
     youtube: "https://youtube.com/avanikatravels",
   },
   workingHours: "Mon - Sat: 9:00 AM - 7:00 PM",
+  theme: {
+    primaryColor: "#f03ef3",
+    secondaryColor: "#ffffff"
+  }
 }
 
 export function SiteProvider({ children }) {
@@ -554,6 +571,7 @@ export function SiteProvider({ children }) {
   const [blogs, setBlogs] = useState([])
   const [contacts, setContacts] = useState([])
   const [reviews, setReviews] = useState([])
+  const [siteData, setSiteData] = useState(defaultSiteData)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
@@ -567,18 +585,35 @@ export function SiteProvider({ children }) {
       setLoading(true)
       setError(null)
 
-      const [placesRes, packagesRes, blogsRes] = await Promise.all([
+      // Fetch other data in parallel
+      const [placesRes, packagesRes, blogsRes, contactsRes, reviewsRes] = await Promise.all([
         axios.get(`${API_BASE_URL}/places`),
         axios.get(`${API_BASE_URL}/packages`),
-        axios.get(`${API_BASE_URL}/blogs`)
+        axios.get(`${API_BASE_URL}/blogs/published`),
+        axios.get(`${API_BASE_URL}/contacts`),
+        axios.get(`${API_BASE_URL}/reviews`)
       ])
 
       setPlaces(placesRes.data)
       setPackages(packagesRes.data)
       setBlogs(blogsRes.data)
+      setContacts(contactsRes.data)
+      setReviews(reviewsRes.data)
+
+      // Fetch website data separately - only update if successful
+      try {
+        const websiteRes = await axios.get(`${API_BASE_URL}/website`)
+        setSiteData(websiteRes.data)
+        console.log('website data',websiteRes.data);
+        
+      } catch (websiteErr) {
+        console.warn('Website data not loaded, keeping default data:', websiteErr)
+        // Keep existing siteData (default data)
+      }
     } catch (err) {
       console.error('Error fetching data:', err)
       setError('Failed to load data from server')
+      // Keep default site data on error
     } finally {
       setLoading(false)
     }
@@ -921,9 +956,11 @@ export function SiteProvider({ children }) {
   }
 
   // Reviews CRUD operations
-  const fetchReviews = async () => {
+  const fetchReviews = async (token = null) => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/reviews`)
+      const authToken = token || localStorage.getItem('adminToken')
+      const headers = authToken ? { Authorization: `Bearer ${authToken}` } : {}
+      const response = await axios.get(`${API_BASE_URL}/reviews`, { headers })
       setReviews(response.data)
       return response.data
     } catch (err) {
@@ -998,7 +1035,47 @@ export function SiteProvider({ children }) {
     }
   }
 
+  // Website data management
+  const updateWebsiteData = async (websiteData, token) => {
+    try {
+      const response = await axios.post(`${API_BASE_URL}/website`, websiteData, {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      setSiteData(response.data)
+      return response.data
+    } catch (err) {
+      console.error('Error updating website data:', err)
+      throw err
+    }
+  }
+
+
+  function timeAgo(jsonDate) {
+  const date = new Date(jsonDate);
+  const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
+
+  if (isNaN(seconds) || seconds < 0) return "just now";
+
+  const intervals = [
+    { label: "year", seconds: 31536000 },
+    { label: "month", seconds: 2592000 },
+    { label: "day", seconds: 86400 },
+    { label: "hour", seconds: 3600 },
+    { label: "minute", seconds: 60 },
+  ];
+
+  for (const interval of intervals) {
+    const count = Math.floor(seconds / interval.seconds);
+    if (count >= 1) {
+      return `${count} ${interval.label}${count > 1 ? "s" : ""} ago`;
+    }
+  }
+
+  return "just now";
+}
+
   const value = {
+    timeAgo,
     siteData,
     places,
     packages,
@@ -1031,13 +1108,15 @@ export function SiteProvider({ children }) {
     fetchReviews,
     updateReview,
     deleteReview,
+    // Website
+    updateWebsiteData,
     // Toggle status
     togglePlaceStatus,
     togglePackageStatus,
     toggleBlogPublished,
     toggleContactStatus,
     toggleReviewStatus,
-    
+
     // Utility
     refreshData: fetchAllData
   }

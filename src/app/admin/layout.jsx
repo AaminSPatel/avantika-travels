@@ -6,7 +6,8 @@ import Link from 'next/link'
 import { 
   Menu, X, Home, Package, MapPin, FileText, 
   MessageSquare, Star, LogOut, User, ChevronRight,
-   Settings
+   Settings,
+   NetworkIcon
 } from 'lucide-react'
 import { MdDashboard } from "react-icons/md";
 export default function AdminLayout({ children }) {
@@ -62,12 +63,13 @@ export default function AdminLayout({ children }) {
 
   // Navigation items
   const navItems = [
-    /* { href: '/admin/dashboard', label: 'Dashboard', icon: Home }, */
+    { href: '/admin/dashboard', label: 'Dashboard', icon: Home },
     { href: '/admin/packages', label: 'Packages', icon: Package },
     { href: '/admin/places', label: 'Places', icon: MapPin },
    { href: '/admin/blogs', label: 'Blogs', icon: FileText },
    { href: '/admin/contacts', label: 'Contacts', icon: MessageSquare },
-    /*   { href: '/admin/reviews', label: 'Reviews', icon: Star }, */
+      { href: '/admin/reviews', label: 'Reviews', icon: Star },
+      { href: '/admin/website', label: 'Website', icon: NetworkIcon },
   ]
 
   if (loading) {
@@ -104,7 +106,7 @@ export default function AdminLayout({ children }) {
 
       {/* Sidebar - Fixed position */}
       <aside className={`
-        fixed lg:static inset-y-0 left-0 z-50 w-64 bg-white shadow-xl transform transition-transform duration-300 ease-in-out
+        fixed  inset-y-0 left-0 sm:z-40 z-50 w-64 bg-white shadow-xl transform transition-transform duration-300 ease-in-out
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
         lg:flex lg:flex-col lg:h-screen
       `}>
@@ -182,7 +184,7 @@ export default function AdminLayout({ children }) {
       </aside>
 
       {/* Main Content Area - Takes remaining space */}
-      <div className="flex-1 flex flex-col min-h-screen overflow-hidden">
+      <div className="flex-1 lg:pl-64 flex flex-col min-h-screen overflow-hidden">
         {/* Top Header */}
         <header className="sticky top-0 z-30 bg-white border-b border-gray-200 lg:static">
           <div className="flex items-center justify-between px-4 py-3 sm:px-6">

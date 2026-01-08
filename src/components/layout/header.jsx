@@ -7,13 +7,13 @@ import { FiMenu, FiX, FiPhone, FiMail } from "react-icons/fi"
 import { useSite } from "@/context/site-context"
 
 const navLinks = [
-  { name: "Home", href: "/" },
-  { name: "Destinations", href: "/places" },
-  { name: "Packages", href: "/packages" },
-  { name: "Services", href: "/services" },
-  { name: "Blogs", href: "/blogs" },
-  { name: "About Us", href: "/about" },
-  { name: "Contact", href: "/contact" },
+  { name: "Home", href: "/", title: "Avantika Travels - Best Travel Agency in Madhya Pradesh" },
+  { name: "Destinations", href: "/places", title: "Explore Religious Pilgrimage Sites in Madhya Pradesh - Avantika Travels" },
+  { name: "Packages", href: "/packages", title: "Tour Packages to Madhya Pradesh - Holiday, Pilgrimage & Adventure Tours" },
+  { name: "Services", href: "/services", title: "Travel Services - Car Rental, Hotel Booking, Tour Guide in Madhya Pradesh" },
+  { name: "Blogs", href: "/blogs", title: "Travel Blogs - Madhya Pradesh Tourism Guide & Travel Tips" },
+  { name: "About Us", href: "/about", title: "About Avantika Travels - Leading Travel Agency in Indore, Madhya Pradesh" },
+  { name: "Contact", href: "/contact", title: "Contact Avantika Travels - Get in Touch for Your Next Trip" },
 ]
 
 export default function Header() {
@@ -71,7 +71,7 @@ export default function Header() {
           <div className="hidden lg:block">
             <Link
               href="/packages"
-              className="bg-primary text-white px-6 py-2.5 rounded-full font-semibold hover:bg-primary/90 transition-colors"
+              className="bg-primary text-white px-4 py-2.5 rounded-full font-semibold hover:bg-primary/90 transition-colors flex"
             >
               Book Now
             </Link>
@@ -101,6 +101,7 @@ export default function Header() {
                   <Link
                     key={link.name}
                     href={link.href}
+                    prefetch={link.name === "Home" || link.name === "Packages" ? true : false}
                     className="block text-foreground hover:text-primary transition-colors font-medium py-2"
                     onClick={() => setIsMenuOpen(false)}
                   >
@@ -109,7 +110,7 @@ export default function Header() {
                 ))}
                 <Link
                   href="/packages"
-                  className="block bg-primary text-white px-6 py-3 rounded-full font-semibold text-center hover:bg-primary/90 transition-colors"
+                  className=" bg-primary text-white px-6 py-3 rounded-full font-semibold text-center hover:bg-primary/90 transition-colors"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Book Now

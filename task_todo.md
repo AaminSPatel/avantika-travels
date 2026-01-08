@@ -1,8 +1,14 @@
-# Task: Update Admin Layout with Header and Toggle Icon
+# Dashboard Fixes TODO
 
-## Steps to Complete
-- [x] Restructure the main content div in layout.jsx to use flex-col layout
-- [x] Add a header div at the top of the main content with a hamburger menu toggle icon (visible on small screens)
-- [x] Remove the existing "Hide/Show Sidebar" text button from the main content
-- [x] Adjust padding in the main content area to reduce padding for nested pages
-- [x] Verify the layout works on different screen sizes, especially mobile
+## Completed Tasks
+- [x] Analyze dashboard issues and create plan
+- [ ] Remove revenue card from dashboard UI
+- [ ] Implement real recent activity using actual timestamps
+- [ ] Calculate growth percentages using MonthlyStats API
+- [ ] Update dashboard to use backend stats instead of frontend calculations
+- [ ] Add website performance metrics tracking
+
+## Testing
+- [ ] Test dashboard with real data
+- [ ] Verify recent activity shows real timestamps
+- [ ] Verify growth percentages are calculated correctly

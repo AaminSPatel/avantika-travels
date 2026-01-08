@@ -19,12 +19,21 @@ export default function AdminPackages() {
   const [loading, setLoading] = useState(false)
   const fileInputRef = useRef(null)
 
+  // Filter states
+  const [searchTerm, setSearchTerm] = useState('')
+  const [statusFilter, setStatusFilter] = useState('all')
+  const [categoryFilter, setCategoryFilter] = useState('all')
+  const [priceRangeFilter, setPriceRangeFilter] = useState('all')
+  const [sortBy, setSortBy] = useState('newest')
+  const [showFilters, setShowFilters] = useState(false)
+
   const [formData, setFormData] = useState({
     name: '',
     description: '',
     price: '',
     duration: '',
     destination: '',
+    category: '',
     images: [],
     itinerary: [],
     inclusions: [],
@@ -35,6 +44,68 @@ export default function AdminPackages() {
   useEffect(() => {
     fetchPackages()
   }, [fetchPackages])
+
+  // Get unique categories from packages
+  const uniqueCategories = [...new Set(packages.map(pkg => pkg.category).filter(Boolean))]
+
+  // Filtering and sorting logic
+  const filteredPackages = packages
+    .filter((pkg) => {
+      // Search filter
+      if (searchTerm && !pkg.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+          !pkg.description.toLowerCase().includes(searchTerm.toLowerCase()) &&
+          !pkg.destination.toLowerCase().includes(searchTerm.toLowerCase())) {
+        return false
+      }
+
+      // Status filter
+      if (statusFilter !== 'all') {
+        const isActive = statusFilter === 'active'
+        if (pkg.status !== isActive) return false
+      }
+
+      // Category filter
+      if (categoryFilter !== 'all' && pkg.category !== categoryFilter) {
+        return false
+      }
+
+      // Price range filter
+      if (priceRangeFilter !== 'all') {
+        const price = pkg.price
+        switch (priceRangeFilter) {
+          case '0-5000':
+            if (price > 5000) return false
+            break
+          case '5000-15000':
+            if (price < 5000 || price > 15000) return false
+            break
+          case '15000-30000':
+            if (price < 15000 || price > 30000) return false
+            break
+          case '30000+':
+            if (price < 30000) return false
+            break
+        }
+      }
+
+      return true
+    })
+    .sort((a, b) => {
+      switch (sortBy) {
+        case 'newest':
+          return new Date(b.createdAt || 0) - new Date(a.createdAt || 0)
+        case 'oldest':
+          return new Date(a.createdAt || 0) - new Date(b.createdAt || 0)
+        case 'price-low':
+          return a.price - b.price
+        case 'price-high':
+          return b.price - a.price
+        case 'name':
+          return a.name.localeCompare(b.name)
+        default:
+          return 0
+      }
+    })
 
   const showAlert = (type, message) => {
     setAlert({ show: true, type, message })
@@ -52,6 +123,7 @@ export default function AdminPackages() {
       price: '',
       duration: '',
       destination: '',
+      category: '',
       images: [],
       itinerary: [],
       inclusions: [],
@@ -70,6 +142,7 @@ export default function AdminPackages() {
       price: pkg.price,
       duration: pkg.duration,
       destination: pkg.destination,
+      category: pkg.category,
       images: pkg.images || [],
       itinerary: pkg.itinerary || [],
       inclusions: pkg.inclusions || [],
@@ -240,10 +313,73 @@ export default function AdminPackages() {
           </div>
         </div>
 
+        {/* Filters */}
+        <div className="bg-white rounded-xl shadow-md p-4 md:p-6 mb-6">
+          <div className="space-y-4">
+            {/* Search */}
+            <div className="w-full">
+              <input
+                type="text"
+                placeholder="Search packages..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
+              />
+            </div>
+
+            {/* Filter Selects */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <select
+                value={statusFilter}
+                onChange={(e) => setStatusFilter(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
+              >
+                <option value="all">All Status</option>
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+              </select>
+              <select
+                value={categoryFilter}
+                onChange={(e) => setCategoryFilter(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
+              >
+                <option value="all">All Categories</option>
+                {uniqueCategories.map((category) => (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
+                ))}
+              </select>
+              <select
+                value={priceRangeFilter}
+                onChange={(e) => setPriceRangeFilter(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
+              >
+                <option value="all">All Prices</option>
+                <option value="0-5000">₹0 - ₹5,000</option>
+                <option value="5000-15000">₹5,000 - ₹15,000</option>
+                <option value="15000-30000">₹15,000 - ₹30,000</option>
+                <option value="30000+">₹30,000+</option>
+              </select>
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
+              >
+                <option value="newest">Newest First</option>
+                <option value="oldest">Oldest First</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="name">Name A-Z</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
         {/* Grid View */}
         {viewMode === 'grid' ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {packages.map((pkg) => (
+            {filteredPackages.map((pkg) => (
               <div key={pkg._id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow">
                 {/* Image */}
                 <div className="relative h-48">
@@ -331,6 +467,9 @@ export default function AdminPackages() {
                       Destination
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Category
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Duration
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -345,7 +484,7 @@ export default function AdminPackages() {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {packages.map((pkg) => (
+                  {filteredPackages.map((pkg) => (
                     <tr key={pkg._id} className="hover:bg-gray-50">
                       <td className="px-6 py-4">
                         <div className="flex items-center">
@@ -366,6 +505,9 @@ export default function AdminPackages() {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-black">
                         {pkg.destination}
+                      </td>
+                       <td className="px-6 py-4 whitespace-nowrap text-sm text-black">
+                        {pkg.category}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-black">
                         {pkg.duration}
@@ -494,6 +636,18 @@ export default function AdminPackages() {
                         type="text"
                         value={formData.destination}
                         onChange={(e) => setFormData({ ...formData, destination: e.target.value })}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
+                        required
+                      />
+                    </div>
+ <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Category *
+                      </label>
+                      <input
+                        type="text"
+                        value={formData.category}
+                        onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
                         required
                       />

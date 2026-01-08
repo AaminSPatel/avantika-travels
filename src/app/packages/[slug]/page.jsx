@@ -14,7 +14,24 @@ export default function PackageDetailsPage({ params }) {
   const { packages, siteData } = useSite()
 
   const pkg = packages.find((p) => p.slug === resolvedParams.slug)
-  const relatedPackages = packages.filter((p) => p.id !== pkg?.id).slice(0, 4)
+
+  // Get related packages: same category or destination, excluding current
+  let relatedPackages = packages.filter((p) =>
+    p._id !== pkg?._id && (p.category === pkg?.category || p.destination === pkg?.destination)
+  )
+
+  // If fewer than 3 related, add more packages to reach up to 4 total
+  if (relatedPackages.length < 3) {
+    const remainingPackages = packages.filter((p) =>
+      p._id !== pkg?._id && !relatedPackages.some(rp => rp._id === p._id)
+    )
+    const additionalNeeded = 4 - relatedPackages.length
+    const additionalPackages = remainingPackages.slice(0, additionalNeeded)
+    relatedPackages = [...relatedPackages, ...additionalPackages]
+  } else {
+    // Limit to 4 if more than 3
+    relatedPackages = relatedPackages.slice(0, 4)
+  }
 
   if (!pkg) {
     return (
@@ -140,7 +157,7 @@ export default function PackageDetailsPage({ params }) {
                     {pkg.exclusions.map((item, index) => (
                       <div key={index} className="flex items-center gap-3">
                         <div className="w-6 h-6 bg-red-100 rounded-full flex items-center justify-center">
-                          <span className="w-2 h-2 bg-red-600 rounded-full" />
+                          <span className="w-4 h-4 bg-primary rounded-full" />
                         </div>
                         <span className="text-foreground">{item}</span>
                       </div>
@@ -183,9 +200,9 @@ export default function PackageDetailsPage({ params }) {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.3 }}
-                className="sticky top-24 bg-muted rounded-2xl p-6"
+                className="sticky top-24 bg-muted rounded-2xl p-6 flex flex-col"
               >
-                <div className="mb-6">
+                <div className="mb-6 order-2 lg:order-1">
                   <div className="flex items-baseline gap-2 mb-2">
                     <span className="text-3xl font-bold text-primary">
                       ₹{pkg.price.toLocaleString()}
@@ -197,6 +214,11 @@ export default function PackageDetailsPage({ params }) {
                       Currently Unavailable
                     </div>
                   )}
+                </div>
+                <div className="mb-6 order-1 lg:order-2">
+                  <div className="text-sm text-muted-foreground bg-blue-50 p-3 rounded-lg">
+                    <strong>Note:</strong> If the tour has fewer than 12 people, guide charge will be ₹1000 per day. If 12 or more people, guide is included.
+                  </div>
                 </div>
 
                 <div className="space-y-4 mb-6">
@@ -254,7 +276,15 @@ export default function PackageDetailsPage({ params }) {
       {/* Related Packages */}
       <section className="py-16 md:py-24 bg-muted">
         <div className="container mx-auto px-4">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-8">You May Also Like</h2>
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground">You May Also Like</h2>
+            <Link
+              href="/packages"
+              className="bg-primary text-white px-6 py-2 rounded-full font-semibold hover:bg-primary-dark transition-colors"
+            >
+              View All Packages
+            </Link>
+          </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {relatedPackages.map((relatedPkg, index) => (
               <PackageCard key={relatedPkg.id} pkg={relatedPkg} index={index} />

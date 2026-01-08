@@ -26,8 +26,9 @@ export default function PlaceCard({ place, index = 0, variant = "default" }) {
         <div className={`relative rounded-2xl overflow-hidden ${isLarge ? "h-[530px]" : "h-48"}`}>
           <Image
             src={imageUrl}
-            alt={place.title || place.name}
+            alt={`${place.title || place.name} - Religious Pilgrimage Site in Madhya Pradesh, India | Avantika Travels`}
             fill
+            priority={index < 3}
             className="object-cover group-hover:scale-110 transition-transform duration-500"
             sizes={isLarge ? "(min-width: 1024px) 50vw, 100vw" : "(min-width: 768px) 33vw, 100vw"}
           />

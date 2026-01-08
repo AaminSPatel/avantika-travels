@@ -1,24 +1,48 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { FiFilter, FiX } from "react-icons/fi"
 import PageHeader from "@/components/ui/page-header"
 import PackageCard from "@/components/ui/package-card"
+import Pagination from "@/components/ui/pagination"
 import { useSite } from "@/context/site-context"
 
 export default function PackagesPage() {
   const { packages, places, siteData } = useSite()
   const [selectedLocation, setSelectedLocation] = useState("all")
   const [selectedDuration, setSelectedDuration] = useState("all")
+  const [selectedCategory, setSelectedCategory] = useState("all")
   const [showFilters, setShowFilters] = useState(false)
+  const [currentPage, setCurrentPage] = useState(1)
+  const itemsPerPage = 12
+
+  // Get unique categories from packages
+  const uniqueCategories = [...new Set(packages.map(pkg => pkg.category).filter(Boolean))]
 
   const filteredPackages = packages.filter((pkg) => {
     const locationMatch =
       selectedLocation === "all" || pkg.location.toLowerCase().includes(selectedLocation.toLowerCase())
     const durationMatch = selectedDuration === "all" || pkg.duration.includes(selectedDuration)
-    return locationMatch && durationMatch
+    const categoryMatch = selectedCategory === "all" || pkg.category === selectedCategory
+    return locationMatch && durationMatch && categoryMatch
   })
+
+  // Pagination logic
+  const totalItems = filteredPackages.length
+  const startIndex = (currentPage - 1) * itemsPerPage
+  const endIndex = startIndex + itemsPerPage
+  const paginatedPackages = filteredPackages.slice(startIndex, endIndex)
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [selectedLocation, selectedDuration, selectedCategory])
 
   const durations = ["2 Days", "3 Days", "5 Days", "7 Days"]
 
@@ -27,7 +51,7 @@ export default function PackagesPage() {
       <PageHeader
         title="Tour Packages"
         subtitle={`Curated spiritual journeys and heritage tours across ${siteData.region}`}
-        backgroundImage="/madhya-pradesh-heritage-temples-palaces.jpg"
+        backgroundImage="/pik4.avif"
       />
 
       <section className="py-16 md:py-24 bg-white">
@@ -44,29 +68,56 @@ export default function PackagesPage() {
               </button>
 
               {/* Desktop Filters */}
-              <div className="hidden md:flex items-center gap-3">
-                <span className="text-muted-foreground font-medium">Location:</span>
-                <button
-                  onClick={() => setSelectedLocation("all")}
-                  className={`px-4 py-2 rounded-full font-medium transition-colors ${
-                    selectedLocation === "all" ? "bg-primary text-white" : "bg-muted text-foreground hover:bg-gray-200"
-                  }`}
-                >
-                  All
-                </button>
-                {places.map((place) => (
+              <div className="hidden md:flex items-center gap-6">
+                <div className="flex items-center gap-3">
+                  <span className="text-muted-foreground font-medium">Location:</span>
                   <button
-                    key={place.id}
-                    onClick={() => setSelectedLocation(place.name)}
+                    onClick={() => setSelectedLocation("all")}
                     className={`px-4 py-2 rounded-full font-medium transition-colors ${
-                      selectedLocation === place.name
-                        ? "bg-primary text-white"
-                        : "bg-muted text-foreground hover:bg-gray-200"
+                      selectedLocation === "all" ? "bg-primary text-white" : "bg-muted text-foreground hover:bg-gray-200"
                     }`}
                   >
-                    {place.name}
+                    All
                   </button>
-                ))}
+                  {places.map((place) => (
+                    <button
+                      key={place.id}
+                      onClick={() => setSelectedLocation(place.name)}
+                      className={`px-4 py-2 rounded-full font-medium transition-colors ${
+                        selectedLocation === place.name
+                          ? "bg-primary text-white"
+                          : "bg-muted text-foreground hover:bg-gray-200"
+                      }`}
+                    >
+                      {place.name}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <span className="text-muted-foreground font-medium">Category:</span>
+                  <button
+                    onClick={() => setSelectedCategory("all")}
+                    className={`px-4 py-2 rounded-full font-medium transition-colors ${
+                      selectedCategory === "all" ? "bg-primary text-white" : "bg-muted text-foreground hover:bg-gray-200"
+                    }`}
+                  >
+                    All
+                  </button>
+                  {uniqueCategories.map((category) => (
+                    <button
+                      key={category}
+                      onClick={() => setSelectedCategory(category)}
+                      className={`px-4 py-2 rounded-full font-medium transition-colors ${
+                        selectedCategory === category
+                          ? "bg-primary text-white"
+                          : "bg-muted text-foreground hover:bg-gray-200"
+                      }`}
+                    >
+                      {category}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
 
@@ -142,16 +193,51 @@ export default function PackagesPage() {
                     ))}
                   </div>
                 </div>
+
+                <div>
+                  <p className="text-sm font-medium mb-2">Category</p>
+                  <div className="flex flex-wrap gap-2">
+                    <button
+                      onClick={() => setSelectedCategory("all")}
+                      className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                        selectedCategory === "all" ? "bg-primary text-white" : "bg-white text-foreground"
+                      }`}
+                    >
+                      All
+                    </button>
+                    {uniqueCategories.map((category) => (
+                      <button
+                        key={category}
+                        onClick={() => setSelectedCategory(category)}
+                        className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                          selectedCategory === category ? "bg-primary text-white" : "bg-white text-foreground"
+                        }`}
+                      >
+                        {category}
+                      </button>
+                    ))}
+                  </div>
+                </div>
               </div>
             </motion.div>
           )}
 
           {/* Package Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {filteredPackages.map((pkg, index) => (
+            {paginatedPackages.map((pkg, index) => (
               <PackageCard key={pkg._id} pkg={pkg} index={index} />
             ))}
           </div>
+
+          {/* Pagination */}
+          {totalItems > itemsPerPage && (
+            <Pagination
+              totalItems={totalItems}
+              itemsPerPage={itemsPerPage}
+              currentPage={currentPage}
+              onPageChange={handlePageChange}
+            />
+          )}
 
           {filteredPackages.length === 0 && (
             <div className="text-center py-16">
@@ -160,6 +246,7 @@ export default function PackagesPage() {
                 onClick={() => {
                   setSelectedLocation("all")
                   setSelectedDuration("all")
+                  setSelectedCategory("all")
                 }}
                 className="mt-4 text-primary font-semibold hover:underline"
               >

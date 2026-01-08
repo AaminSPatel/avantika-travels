@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# Block admin pages from search engines
+Disallow: /admin/
+Disallow: /api/admin/
+
+# Allow important pages
+Allow: /places
+Allow: /packages
+Allow: /blogs
+Allow: /about
+Allow: /contact
+Allow: /services
+
+# Sitemap
+Sitemap: https://avantikatravels.com/sitemap.xml
+
+# Crawl delay (optional)
+Crawl-delay: 1

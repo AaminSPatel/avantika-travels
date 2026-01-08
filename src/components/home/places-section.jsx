@@ -51,7 +51,7 @@ export default function PlacesSection() {
 
         {/* Popular Destinations Grid */}
         <h3 className="text-xl font-semibold text-foreground mb-6">Popular Destinations</h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-12">
           {categorizedPlaces.popular.map((place, index) => (
             <motion.div
               key={place._id}
@@ -65,8 +65,9 @@ export default function PlacesSection() {
                 <div className="relative rounded-2xl overflow-hidden h-64">
                   <Image
                     src={place.images[0]?.url || '/placeholder-destination.jpg'}
-                    alt={place.title || place.name}
+                    alt={`${place.title || place.name} - Religious Pilgrimage Site in Madhya Pradesh, India | Avantika Travels`}
                     fill
+                    priority={index < 3}
                     className="object-cover group-hover:scale-110 transition-transform duration-500"
                     sizes="(min-width: 768px) 33vw, 100vw"
                   />
@@ -74,7 +75,7 @@ export default function PlacesSection() {
 
                   {/* Category Badge */}
                   {place.category && (
-                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full">
+                    <div className="absolute top-4 sm:left-4 left-2 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full">
                       <span className="text-sm font-semibold text-foreground">
                         {place.category}
                       </span>
@@ -82,18 +83,18 @@ export default function PlacesSection() {
                   )}
 
                   <div className="absolute bottom-0 left-0 right-0 p-4">
-                    <div className="flex items-end justify-between">
+                    <div className="flex items-end sm:flex-row flex-col justify-between">
                       <div className="space-y-1">
-                        <h3 className="font-semibold pl-2 text-white text-lg">
+                        <h3 className="font-semibold sm:pl-2 text-white text-lg">
                           {place.title || place.name}
                         </h3>
-                        <div className="flex items-center gap-1.5 text-white/90 text-sm">
-                          <FiMapPin className="w-3.5 h-3.5" />
-                          <span>{place.location}</span>
+                        <div className="flex sm:items-center gap-1.5 text-white/90 text-sm">
+                          <FiMapPin className="w-5 5 hidden sm:block" />
+                          <span><FiMapPin className="w-5 5  sm:hidden" />{place.location}</span>
                         </div>
                       </div>
                       <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center group-hover:bg-white transition-colors">
-                        <FiArrowRight className="w-4 h-4 text-white group-hover:text-primary transition-colors" />
+                        <FiArrowRight className="w-4 h-4  text-white group-hover:text-primary transition-colors" />
                       </div>
                     </div>
                   </div>
@@ -109,9 +110,10 @@ export default function PlacesSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.4 }}
             className="relative rounded-2xl overflow-hidden h-64"
+             style={{backgroundImage:`url('/pik8.avif')`}}
           >
-            <Link href={'/places'}>
-              <div className="absolute inset-0 bg-linear-to-br from-primary to-primary/70 flex items-center justify-center object-cover" style={{backgroundImage:`url('/bg2.jpg')`}}>
+            <Link href={'/places'} className=" p-6">
+              <div className="absolute inset-0 bg-white/10 backdrop-blur-xs flex items-center justify-center object-cover">
                 <div className="text-center text-white p-6">
                   <p className="font-bold text-xl mb-2">Explore All</p>
                   <p className="text-sm opacity-90">+{places.length} Destinations</p>

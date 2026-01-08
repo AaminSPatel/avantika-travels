@@ -42,8 +42,9 @@ export default function BlogCard({ blog, index = 0 }) {
           <div className="relative h-52 overflow-hidden">
             <Image
               src={imageUrl}
-              alt={blog.title}
+              alt={`${blog.title} - ${blog.category} Blog Post about Madhya Pradesh Travel | Avantika Travels`}
               fill
+              priority={index < 3}
               className="object-cover group-hover:scale-110 transition-transform duration-500"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />

@@ -15,13 +15,14 @@ export default function PackageCard({ pkg, index = 0 }) {
       className="group"
     >
       <Link href={`/packages/${pkg.slug}`}>
-        <div className="relative rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all duration-300">
+        <div className="relative rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-full">
           {/* Image */}
           <div className="relative h-52 overflow-hidden">
             <Image
               src={pkg.images[0]?.url || "/placeholder.svg"}
-              alt={pkg.name}
+              alt={`${pkg.name} - ${pkg.duration} Tour Package to ${pkg.destination}, Madhya Pradesh | Avantika Travels`}
               fill
+              priority={index < 3}
               className="object-cover group-hover:scale-110 transition-transform duration-500"
             />
             {pkg.discount > 0 && (
@@ -32,13 +33,13 @@ export default function PackageCard({ pkg, index = 0 }) {
           </div>
 
           {/* Content */}
-          <div className="p-4">
+          <div className="p-4 flex-1 flex flex-col">
             <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
               <FiClock className="w-4 h-4" />
               <span>{pkg.duration}</span>
               <span className="mx-1">·</span>
               <FiMapPin className="w-4 h-4" />
-              <span>{pkg.location}</span>
+              <span>{pkg.destination}</span>
             </div>
 
             <h3 className="font-semibold text-foreground mb-2 line-clamp-2 group-hover:text-primary transition-colors sm:min-h-12 min-h-6">
