@@ -52,7 +52,7 @@ export function MetadataProvider({ children }) {
     <>
       <Head>
         <title>{siteData?.name ? `${siteData.name} | ${siteData.tagline}` : "Avantika Travels | Discover the Divine Beauty of Madhya Pradesh"}</title>
-       <meta name="google-site-verification" content="wvy-XHnWdz5nBgkWv8T5oQJ6qDHnmaUD0KSYaNBz1Bk" />
+      {/*  <meta name="google-site-verification" content="wvy-XHnWdz5nBgkWv8T5oQJ6qDHnmaUD0KSYaNBz1Bk" /> */}
         <meta name="description" content={siteData?.description || "Experience the spiritual essence and cultural heritage of Madhya Pradesh with Avantika Travels. We specialize in pilgrimages to Mahakal Mandir and tours across Ujjain, Indore, and Dewas."} />
         <meta name="keywords" content={siteData?.keywords ? siteData.keywords.join(', ') : "Mahakal Mandir, Ujjain travel, Madhya Pradesh pilgrimage, Indore tours, Dewas travel, spiritual tours India"} />
         <meta property="og:title" content={siteData?.name ? `${siteData.name} | ${siteData.tagline}` : "Avantika Travels | Discover the Divine Beauty of Madhya Pradesh"} />
