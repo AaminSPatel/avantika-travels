@@ -22,17 +22,13 @@ export const viewport = {
 }
 
 
-/*  --primary: var(--dynamic-primary, oklch(64.908% 0.235 5.559));
-  --primary-foreground: oklch(1 0 0);
-  --primary-dark: oklch(0.5 0.25 0);
-  --secondary: var(--dynamic-secondary, oklch(0.97 0 0));
-  */
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <meta name="google-site-verification" content="wvy-XHnWdz5nBgkWv8T5oQJ6qDHnmaUD0KSYaNBz1Bk" />
-      </head>
+       {/*  <meta name="google-site-verification" content="wvy-XHnWdz5nBgkWv8T5oQJ6qDHnmaUD0KSYaNBz1Bk" />
+     */} <meta name="google-site-verification" content="Kzya8PN69Pu0Wy8EeAaDq8-GKXBErwII4ela_A_nTqY" /> </head>
       <body className={`${poppins.variable} font-sans antialiased`}>
         <SiteProvider>
           <ThemeProvider>
