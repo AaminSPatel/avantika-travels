@@ -2,11 +2,11 @@
 
 import { useState, useEffect } from 'react'
 import { FaStar, FaFilter } from 'react-icons/fa'
+import { useSite } from '../../context/site-context'
 
 export default function ReviewsSection() {
-  const [reviews, setReviews] = useState([])
+  const { reviews, loading } = useSite()
   const [filteredReviews, setFilteredReviews] = useState([])
-  const [loading, setLoading] = useState(true)
   const [showForm, setShowForm] = useState(false)
   const [formData, setFormData] = useState({
     userName: '',
@@ -20,26 +20,8 @@ export default function ReviewsSection() {
   const [showSuccessAlert, setShowSuccessAlert] = useState(false)
 
   useEffect(() => {
-    fetchReviews()
-  }, [])
-
-  useEffect(() => {
     filterReviews()
   }, [reviews, filter])
-
-  const fetchReviews = async () => {
-    try {
-      const response = await fetch('/api/website/reviews')
-      if (response.ok) {
-        const data = await response.json()
-        setReviews(data)
-      }
-    } catch (error) {
-      console.error('Error fetching reviews:', error)
-    } finally {
-      setLoading(false)
-    }
-  }
 
   const filterReviews = () => {
     if (filter === 'all') {
