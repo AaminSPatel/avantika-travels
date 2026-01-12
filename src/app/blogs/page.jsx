@@ -34,6 +34,27 @@ export default function BlogsPage() {
 
   return (
     <>
+      <Head>
+        <title>Travel Blog: Ujjain Darshan Tips & Stories | Avantika Travels</title>
+        <meta name="description" content="Read latest travel guides about Mahakal Lok, Bhasma Aarti booking, and hidden gems of Madhya Pradesh. Stay updated with Avantika Travels." />
+        <meta name="keywords" content="Ujjain travel blog, Mahakal Bhasma Aarti guide, MP tourism tips" />
+        <meta property="og:title" content="Travel Blog: Ujjain Darshan Tips & Stories | Avantika Travels" />
+        <meta property="og:description" content="Read latest travel guides about Mahakal Lok, Bhasma Aarti booking, and hidden gems of Madhya Pradesh. Stay updated with Avantika Travels." />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="/logo.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="Travel Blog - Avantika Travels" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Travel Blog: Ujjain Darshan Tips & Stories | Avantika Travels" />
+        <meta name="twitter:description" content="Read latest travel guides about Mahakal Lok, Bhasma Aarti booking, and hidden gems of Madhya Pradesh. Stay updated with Avantika Travels." />
+        <meta name="twitter:image" content="/logo.png" />
+        <meta name="robots" content="index, follow" />
+        <meta name="revisit-after" content="7 days" />
+        <meta name="language" content="en-IN" />
+        <meta name="geo.region" content="IN-MP" />
+        <link rel="canonical" href="https://avantikatravels.com/blogs" />
+      </Head>
       <PageHeader
         title="Travel Blog"
         subtitle="Stories, tips, and insights from our journeys across Madhya Pradesh"

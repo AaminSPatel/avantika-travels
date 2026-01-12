@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
+import Head from "next/head"
 import { FiCheck, FiUsers, FiAward, FiMap, FiHeart } from "react-icons/fi"
 import PageHeader from "@/components/ui/page-header"
 import { useSite } from "@/context/site-context"
@@ -40,6 +41,19 @@ export default function AboutPage() {
 
   return (
     <>
+      <Head>
+        <title>About Avantika Travels | Your Trusted MP Travel Partner</title>
+        <meta name="description" content="Learn about Avantika Travels, the leading travel agency in Ujjain. We provide reliable taxi services and spiritual tour management since years." />
+        <meta name="keywords" content="Who is Avantika Travels, Ujjain travel agency history, best taxi service Ujjain" />
+        <meta property="og:title" content="About Avantika Travels | Your Trusted MP Travel Partner" />
+        <meta property="og:description" content="Learn about Avantika Travels, the leading travel agency in Ujjain. We provide reliable taxi services and spiritual tour management since years." />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="/pik4.avif" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="About Avantika Travels | Your Trusted MP Travel Partner" />
+        <meta name="twitter:description" content="Learn about Avantika Travels, the leading travel agency in Ujjain. We provide reliable taxi services and spiritual tour management since years." />
+        <meta name="twitter:image" content="/pik4.avif" />
+      </Head>
       <PageHeader
         title="About Us"
         subtitle={`Your trusted travel partner for exploring ${siteData.region}`}

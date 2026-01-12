@@ -7,6 +7,9 @@ import PageHeader from "@/components/ui/page-header"
 import PackageCard from "@/components/ui/package-card"
 import Pagination from "@/components/ui/pagination"
 import { useSite } from "@/context/site-context"
+import Head from "next/head"
+
+
 
 export default function PackagesPage() {
   const { packages, places, siteData } = useSite()
@@ -48,6 +51,27 @@ export default function PackagesPage() {
 
   return (
     <>
+      <Head>
+        <title>Ujjain & Indore Tour Packages | Mahakal Darshan Booking</title>
+        <meta name="description" content="Affordable pilgrimage and leisure packages. Get customized Ujjain-Indore-Omkareshwar tour itineraries from Avantika Travels." />
+        <meta name="keywords" content="Ujjain tour packages, Mahakal Darshan booking, Indore holiday packages, Pilgrimage tours" />
+        <meta property="og:title" content="Ujjain & Indore Tour Packages | Mahakal Darshan Booking" />
+        <meta property="og:description" content="Affordable pilgrimage and leisure packages. Get customized Ujjain-Indore-Omkareshwar tour itineraries from Avantika Travels." />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="/logo.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="Ujjain & Indore Tour Packages - Avantika Travels" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Ujjain & Indore Tour Packages | Mahakal Darshan Booking" />
+        <meta name="twitter:description" content="Affordable pilgrimage and leisure packages. Get customized Ujjain-Indore-Omkareshwar tour itineraries from Avantika Travels." />
+        <meta name="twitter:image" content="/logo.png" />
+        <meta name="robots" content="index, follow" />
+        <meta name="revisit-after" content="7 days" />
+        <meta name="language" content="en-IN" />
+        <meta name="geo.region" content="IN-MP" />
+        <link rel="canonical" href="https://avantikatravels.com/packages" />
+      </Head>
       <PageHeader
         title="Tour Packages"
         subtitle={`Curated spiritual journeys and heritage tours across ${siteData.region}`}

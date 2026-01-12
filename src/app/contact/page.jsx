@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { FiPhone, FiMail, FiMapPin, FiClock, FiSend, FiCheck } from "react-icons/fi"
+import Head from "next/head"
 import PageHeader from "@/components/ui/page-header"
 import { useSite } from "@/context/site-context"
 import axios from "axios"
@@ -71,6 +72,19 @@ export default function ContactPage() {
 
   return (
     <>
+      <Head>
+        <title>Contact Avantika Travels | Book Your Ujjain Taxi Now</title>
+        <meta name="description" content="Contact Avantika Travels for taxi booking in Ujjain and Indore. Call +91 8720006707 for instant quotes and 24/7 travel assistance." />
+        <meta name="keywords" content="Contact Avantika Travels, Ujjain taxi number, book car in Indore" />
+        <meta property="og:title" content="Contact Avantika Travels | Book Your Ujjain Taxi Now" />
+        <meta property="og:description" content="Contact Avantika Travels for taxi booking in Ujjain and Indore. Call +91 8720006707 for instant quotes and 24/7 travel assistance." />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="/pik9.avif" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Contact Avantika Travels | Book Your Ujjain Taxi Now" />
+        <meta name="twitter:description" content="Contact Avantika Travels for taxi booking in Ujjain and Indore. Call +91 8720006707 for instant quotes and 24/7 travel assistance." />
+        <meta name="twitter:image" content="/pik9.avif" />
+      </Head>
       <PageHeader
         title="Contact Us"
         subtitle="Get in touch with us for any inquiries or to plan your perfect trip"

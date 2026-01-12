@@ -30,6 +30,30 @@ export default function BlogDetailsPage({ params }) {
 
   return (
     <>
+      <Head>
+        <title>{blog.title} | Avantika Travels Blog</title>
+        <meta name="description" content={blog.excerpt} />
+        <meta name="keywords" content={`Ujjain travel blog, ${blog.category}, ${blog.title}`} />
+        <meta property="og:title" content={`${blog.title} | Avantika Travels Blog`} />
+        <meta property="og:description" content={blog.excerpt} />
+        <meta property="og:type" content="article" />
+        <meta property="og:image" content={blog.image?.url || "/logo.png"} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content={blog.title} />
+        <meta property="article:author" content={blog.author} />
+        <meta property="article:published_time" content={blog.date} />
+        <meta property="article:section" content={blog.category} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${blog.title} | Avantika Travels Blog`} />
+        <meta name="twitter:description" content={blog.excerpt} />
+        <meta name="twitter:image" content={blog.image?.url || "/logo.png"} />
+        <meta name="robots" content="index, follow" />
+        <meta name="revisit-after" content="7 days" />
+        <meta name="language" content="en-IN" />
+        <meta name="geo.region" content="IN-MP" />
+        <link rel="canonical" href={`https://avantikatravels.com/blogs/${blog.slug}`} />
+      </Head>
       {/* Hero Section */}
       <section className="relative py-20 md:py-32">
         <div className="absolute inset-0">
