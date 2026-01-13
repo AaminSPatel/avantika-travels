@@ -15,6 +15,10 @@ const defaultSiteData = {
   description:
     "Experience the spiritual essence and cultural heritage of Madhya Pradesh with Avantika Travels. We specialize in pilgrimages to Mahakal Mandir and tours across Ujjain, Indore, and Dewas.",
   keywords: [
+    "avantika",
+    "travels",
+    "avantika travels",
+    "ujjain travels",
     "Mahakal Mandir",
     "Ujjain travel",
     "Madhya Pradesh pilgrimage",
@@ -27,7 +31,7 @@ const defaultSiteData = {
     "temple tours central India",
     "sacred sites Madhya Pradesh"
   ],
-  logo: "/logo.jpg",
+  logo: "/logo.png",
   secondaryImage: "/pik2.avif",
   heroImage: "/pik5.avif",
 contactInfo: { email: "info@avanikatravels.com",

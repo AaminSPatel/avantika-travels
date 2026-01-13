@@ -36,7 +36,7 @@ export function StructuredData() {
       siteData.socialLinks?.twitter,
       siteData.socialLinks?.youtube
     ].filter(Boolean),
-    "priceRange": "₹₹"
+    "priceRange": "500"
   }
 
   // 2. Organization Schema

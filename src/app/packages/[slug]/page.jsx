@@ -9,7 +9,7 @@ import { FiMapPin, FiClock, FiStar, FiCheck, FiPhone, FiMail } from "react-icons
 import PageHeader from "@/components/ui/page-header"
 import PackageCard from "@/components/ui/package-card"
 import { useSite } from "@/context/site-context"
-
+import PackageSchema from "@/components/seo/PackageSchema";
 export default function PackageDetailsPage({ params }) {
   const resolvedParams = use(params)
   const { packages, siteData } = useSite()
@@ -53,7 +53,7 @@ export default function PackageDetailsPage({ params }) {
   return (
     <>
       <PageHeader title={pkg.name} subtitle={pkg.description.substring(0, 100)} backgroundImage={mainImage} />
-
+<PackageSchema packageData={data}  mainImage={mainImage} />
       <section className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
