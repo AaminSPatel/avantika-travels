@@ -5,7 +5,7 @@ import ThemeProvider from "@/components/ui/theme-provider";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import WhatsAppIcon from "@/components/ui/whatsapp-icon";
-import { MetadataProvider } from "@/components/seo/metadata-provider";
+//import { MetadataProvider } from "@/components/seo/metadata-provider";
 import { StructuredData } from "@/components/seo/structured-data";
 
 // 1. All SEO & Icons in Metadata Object

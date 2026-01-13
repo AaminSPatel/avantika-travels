@@ -5,31 +5,30 @@ import { useSite } from "@/context/site-context"
 export function StructuredData() {
   const { siteData } = useSite()
 
+  // Base URL constant taaki hydration issues na ho
+  const baseUrl = "https://avantikatravels.com"
+
   if (!siteData || !siteData.name) {
     return null
   }
 
-  // LocalBusiness Schema for Travel Agency
+  // 1. LocalBusiness Schema
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "TravelAgency",
     "name": siteData.name,
     "description": siteData.description,
-    "url": typeof window !== 'undefined' ? window.location.origin : '',
-    "logo": siteData.logo,
-    "image": siteData.secondaryImage,
+    "url": baseUrl,
+    "logo": `${baseUrl}${siteData.logo}`,
+    "image": `${baseUrl}${siteData.secondaryImage}`,
+    "telephone": siteData.contactInfo?.phone,
     "address": {
       "@type": "PostalAddress",
       "streetAddress": siteData.contactInfo?.address,
       "addressLocality": siteData.contactInfo?.location,
       "addressRegion": siteData.contactInfo?.region,
+      "postalCode": "456001",
       "addressCountry": "IN"
-    },
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "telephone": siteData.contactInfo?.phone,
-      "contactType": "customer service",
-      "availableLanguage": "English"
     },
     "sameAs": [
       siteData.socialLinks?.facebook,
@@ -37,125 +36,71 @@ export function StructuredData() {
       siteData.socialLinks?.twitter,
       siteData.socialLinks?.youtube
     ].filter(Boolean),
-    "areaServed": {
-      "@type": "Place",
-      "name": "Madhya Pradesh"
-    },
-    "specialty": "Religious Tourism, Pilgrimage Tours, Cultural Tours",
     "priceRange": "₹₹"
   }
 
-  // Organization Schema
+  // 2. Organization Schema
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": siteData.name,
-    "description": siteData.description,
-    "url": typeof window !== 'undefined' ? window.location.origin : '',
-    "logo": siteData.logo,
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "telephone": siteData.contactInfo?.phone,
-      "contactType": "customer service"
-    },
-    "sameAs": [
-      siteData.socialLinks?.facebook,
-      siteData.socialLinks?.instagram,
-      siteData.socialLinks?.twitter,
-      siteData.socialLinks?.youtube
-    ].filter(Boolean)
+    "url": baseUrl,
+    "logo": `${baseUrl}${siteData.logo}`,
+    "sameAs": localBusinessSchema.sameAs
   }
 
-  // TouristAttraction Schema for Mahakal Mandir
-  const touristAttractionSchema = {
-    "@context": "https://schema.org",
-    "@type": "TouristAttraction",
-    "name": siteData.mainAttraction,
-    "description": "One of the 12 Jyotirlingas, a sacred Hindu temple dedicated to Lord Shiva",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Mahakal Temple Road",
-      "addressLocality": "Ujjain",
-      "addressRegion": "Madhya Pradesh",
-      "addressCountry": "IN"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": "23.1824",
-      "longitude": "75.7687"
-    },
-    "touristType": "Religious Tourism",
-    "isAccessibleForFree": false
-  }
-
-  // FAQ Schema
+  // 3. FAQ Schema
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "What are the main attractions in Madhya Pradesh?",
+        "name": "What is the best time to visit Mahakal Mandir in Ujjain?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Madhya Pradesh offers spiritual sites like Mahakal Mandir in Ujjain, historical monuments, wildlife sanctuaries, and cultural heritage sites across cities like Indore, Bhopal, and Dewas."
+          "text": "The best time to visit is from October to March when the weather is pleasant for darshan and sightseeing."
         }
       },
       {
         "@type": "Question",
-        "name": "How can I book a pilgrimage tour?",
+        "name": "How can I book a taxi from Ujjain to Indore?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "You can contact us directly through our website or call our customer service team to customize and book your pilgrimage tour packages."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the best time to visit Madhya Pradesh?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The best time to visit Madhya Pradesh is from October to March when the weather is pleasant and suitable for sightseeing and religious activities."
+          "text": "You can book a taxi directly by calling us at +91 8720006707 or through our website's booking section."
         }
       }
     ]
   }
 
-  
-const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://avantikatravels.com" },
-    { "@type": "ListItem", "position": 2, "name": "Tour Packages", "item": "https://avantikatravels.com/packages" },
-    { "@type": "ListItem", "position": 3, "name": "Places to Visit", "item": "https://avantikatravels.com/places" },
-    { "@type": "ListItem", "position": 4, "name": "Contact Us", "item": "https://avantikatravels.com/contact" }
-  ]
-};
+  // 4. Breadcrumb Schema (Aapne ise render nahi kiya tha)
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": baseUrl },
+      { "@type": "ListItem", "position": 2, "name": "Tour Packages", "item": `${baseUrl}/packages` },
+      { "@type": "ListItem", "position": 3, "name": "Places to Visit", "item": `${baseUrl}/places` }
+    ]
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(localBusinessSchema)
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(organizationSchema)
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(touristAttractionSchema)
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(faqSchema)
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
     </>
   )
