@@ -3,8 +3,8 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import dynamic from 'next/dynamic'
-import HeroSection from "@/components/home/hero-section"
 import Head from 'next/head'
+import HeroSection from "@/components/home/hero-section"
 
 // Dynamic imports for non-critical components
 const PlacesSection = dynamic(() => import("@/components/home/places-section"))
