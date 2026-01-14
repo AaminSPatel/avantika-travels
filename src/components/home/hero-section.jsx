@@ -50,7 +50,7 @@ export default function HeroSection({
       </div>
 
       {/* Content */}
-      <div className="container mx-auto px-4 relative z-10 mt-6 ">
+      <div className="container mx-auto px-4 relative z-10  ">
         <div className="max-w-3xl">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -58,9 +58,9 @@ export default function HeroSection({
             transition={{ duration: 0.8 }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6"
           >
-            <span className="bold">Discover Your</span> <span className="text-primary">Perfect Journey</span>
-            <br />
-            <span className="">Explore India & Beyond</span>
+            {/* <span className="bold">Discover Your</span> <span className="text-primar">Perfect Journey</span> */}
+            
+            <span className=""> Explore India & Beyond with </span><span className="bold text-5xl text-primary">Avantika Travels</span>
           </motion.h1>
 
           <motion.p
