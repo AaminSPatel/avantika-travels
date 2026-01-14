@@ -21,7 +21,7 @@ export const metadata = {
   // Icons configuration (Corrected)
   icons: {
     icon: [
-      { url: '/favicon.ico' },
+      { url: '/favicon.ico',rel: 'icon' },
       { url: '/favicon-96x96.png', sizes: '96x96', type: 'image/png' },
       { url: '/favicon.svg', type: 'image/svg+xml' },
     ],
