@@ -68,7 +68,7 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-     <!-- Google tag (gtag.js) -->
+    
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-WC73H9S95D"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
