@@ -23,8 +23,7 @@ export const metadata = {
     icon: [
       { url: '/favicon.ico',rel: 'icon' },
       { url: '/favicon.png', sizes: '48x48', type: 'image/png' },
-      { url: '/favicon-96x96.png', sizes: '96x96', type: 'image/png' },
-      { url: '/favicon-96x96.png', sizes: '96x96', type: 'image/png' },
+      { url: '/favicon-16x16.png', sizes: '16x16' , type: 'image/png' },
       { url: '/favicon-96x96.png', sizes: '96x96', type: 'image/png' },
       { url: '/favicon.svg', type: 'image/svg+xml' },
     ],
