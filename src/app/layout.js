@@ -32,12 +32,7 @@ export const metadata = {
         sizes: '16x16',
         type: 'image/png',
       },
-      {
-        rel: 'icon',
-        url: '/favicon-32x32.png',
-        sizes: '32x32',
-        type: 'image/png',
-      },
+  
       {
         rel: 'icon',
         url: '/favicon-96x96.png',
@@ -46,7 +41,7 @@ export const metadata = {
       },
       {
         rel: 'icon',
-        url: '/icon.svg',
+        url: '/favicon.svg',
         type: 'image/svg+xml',
       },
     ],
@@ -85,15 +80,15 @@ export const metadata = {
     locale: 'en_IN',
     type: 'website',
     // 2026 NEW: Enhanced OG
-    audio: '/audio/tour-preview.mp3',
-    videos: [
+    /* audio: '/audio/tour-preview.mp3', */
+   /*  videos: [
       {
         url: '/video/tour-preview.mp4',
         width: 1280,
         height: 720,
         type: 'video/mp4',
       }
-    ],
+    ], */
   },
 
   // 2026 ENHANCED: Twitter Cards
@@ -133,7 +128,7 @@ export const metadata = {
     
     // Verification
     'google-site-verification': "Kzya8PN69Pu0Wy8EeAaDq8-GKXBErwII4ela_A_nTqY",
-    'facebook-domain-verification': 'your-facebook-verification',
+    
   },
 
   // 2026 NEW: Viewport Enhancements
@@ -222,7 +217,7 @@ export default function RootLayout({ children }) {
       <head>
         {/* 2026 FIX: Simplified Favicon Implementation */}
         <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
         
