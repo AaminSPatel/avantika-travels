@@ -95,8 +95,12 @@ const destinations = [
               >
                 <FiYoutube className="w-5 h-5" />
               </a>
-            </div>
           </div>
+
+          <p className="text-center text-gray-400 text-sm mt-4">
+            Designed and developed by <a href="https://create-website-solutions.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Aamin Patel</a>
+          </p>
+        </div>
 
           {/* Quick Links */}
           <div>
@@ -176,6 +180,10 @@ const destinations = [
               All rights reserved. © {siteData.name}. {new Date().getFullYear()}
             </p>
           </div>
+
+          <p className="text-center text-gray-400 text-sm mt-4">
+            Designed and developed by <a href="https://website-developers.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Aamin Patel</a>
+          </p>
         </div>
       </div>
 
