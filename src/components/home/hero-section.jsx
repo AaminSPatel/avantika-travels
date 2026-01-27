@@ -42,11 +42,11 @@ export default function HeroSection({
           alt="Avantika Travels - Mahakal Mandir Tours & Ujjain Pilgrimage"
           fill
           priority
-          quality={75}
+          quality={90}
           className="object-cover"
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/60 to-black/40" />
       </div>
 
       {/* Content */}
@@ -69,7 +69,7 @@ export default function HeroSection({
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-lg md:text-xl text-white/90 mb-8"
           >
-            Experience the divine beauty of Mahakal Mandir and discover amazing travel packages for your spiritual journey
+            Experience the divine beauty of Madhya Pradesh and Discover amazing travel packages for your spiritual journey
           </motion.p>
 
           {/* Search Input Bar */}
@@ -100,7 +100,7 @@ export default function HeroSection({
               disabled={!searchQuery.trim()}
               className={`bg-primary text-white font-semibold px-8 py-4 rounded-full transition-colors flex items-center justify-center gap-2 ${
                 !searchQuery.trim() 
-                  ? "opacity-50 cursor-not-allowed" 
+                  ? "opacity-80 cursor-not-allowed" 
                   : "hover:bg-primary-dark"
               }`}
             >

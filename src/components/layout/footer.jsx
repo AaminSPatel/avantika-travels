@@ -1,49 +1,102 @@
-"use client"
+"use client";
 
-import { useState, useRef } from "react"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { FiFacebook, FiInstagram, FiTwitter, FiYoutube, FiMail, FiMapPin, FiPhone } from "react-icons/fi"
-import { useSite } from "@/context/site-context"
+import { useState, useRef } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import {
+  FiFacebook,
+  FiInstagram,
+  FiTwitter,
+  FiYoutube,
+  FiMail,
+  FiMapPin,
+  FiPhone,
+} from "react-icons/fi";
+import { useSite } from "@/context/site-context";
 
 export default function Footer() {
-  const { siteData } = useSite()
-  const router = useRouter()
-  const [tapCount, setTapCount] = useState(0)
-  const tapTimeoutRef = useRef(null)
- const handleSecretTap = () => {
-    setTapCount(prev => prev + 1)
+  const { siteData } = useSite();
+  const router = useRouter();
+  const [tapCount, setTapCount] = useState(0);
+  const tapTimeoutRef = useRef(null);
+  const handleSecretTap = () => {
+    setTapCount((prev) => prev + 1);
 
     if (tapTimeoutRef.current) {
-      clearTimeout(tapTimeoutRef.current)
+      clearTimeout(tapTimeoutRef.current);
     }
 
     tapTimeoutRef.current = setTimeout(() => {
-      setTapCount(0)
-    }, 2000) // Reset after 2 seconds
+      setTapCount(0);
+    }, 2000); // Reset after 2 seconds
 
     if (tapCount + 1 >= 5) {
-      router.push('/admin/login')
-      setTapCount(0)
+      router.push("/admin/login");
+      setTapCount(0);
     }
-  }
-const quickLinks = [
-    { name: "About Us", href: "/about", title: "About Avantika Travels - Leading Travel Agency in Indore, Madhya Pradesh" },
-    { name: "Contact Us", href: "/contact", title: "Contact Avantika Travels - Get in Touch for Your Next Trip" },
-    { name: "Blogs", href: "/blogs", title: "Travel Blogs - Madhya Pradesh Tourism Guide & Travel Tips" },
-    { name: "Privacy Policy", href: "/privacy-policy", title: "Privacy Policy - Avantika Travels Data Protection" },
-    { name: "Terms & Conditions", href: "/terms-and-conditions", title: "Terms & Conditions - Avantika Travels Service Agreement" },
-  ]
+  };
+  const quickLinks = [
+    {
+      name: "About Us",
+      href: "/about",
+      title:
+        "About Avantika Travels - Leading Travel Agency in Indore, Madhya Pradesh",
+    },
+    {
+      name: "Contact Us",
+      href: "/contact",
+      title: "Contact Avantika Travels - Get in Touch for Your Next Trip",
+    },
+    {
+      name: "Blogs",
+      href: "/blogs",
+      title: "Travel Blogs - Madhya Pradesh Tourism Guide & Travel Tips",
+    },
+    {
+      name: "Privacy Policy",
+      href: "/privacy-policy",
+      title: "Privacy Policy - Avantika Travels Data Protection",
+    },
+    {
+      name: "Terms & Conditions",
+      href: "/terms-and-conditions",
+      title: "Terms & Conditions - Avantika Travels Service Agreement",
+    },
+  ];
 
-const destinations = [
-  { name: "Holiday Packages", href: "/packages?type=holiday", title: "Holiday Packages in Madhya Pradesh - Family & Group Tours" },
-  { name: "Adventure Trips", href: "/packages?type=adventure", title: "Adventure Trips in Madhya Pradesh - Trekking & Outdoor Activities" },
-  { name: "Honeymoon Tours", href: "/packages?type=honeymoon", title: "Romantic Honeymoon Tours in Madhya Pradesh - Couples Getaways" },
-  { name: "Pilgrimage Tours", href: "/packages?type=pilgrimage", title: "Religious Pilgrimage Tours - Sacred Sites in Madhya Pradesh" },
-  { name: "Family Vacations", href: "/packages?type=family", title: "Family Vacation Packages - Safe & Enjoyable Trips for All Ages" },
-  { name: "Weekend Getaways", href: "/packages?type=weekend", title: "Weekend Getaways from Indore - Short Trip Packages" },
-]
- 
+  const destinations = [
+    {
+      name: "Holiday Packages",
+      href: "/packages?type=holiday",
+      title: "Holiday Packages in Madhya Pradesh - Family & Group Tours",
+    },
+    {
+      name: "Adventure Trips",
+      href: "/packages?type=adventure",
+      title:
+        "Adventure Trips in Madhya Pradesh - Trekking & Outdoor Activities",
+    },
+    {
+      name: "Honeymoon Tours",
+      href: "/packages?type=honeymoon",
+      title: "Romantic Honeymoon Tours in Madhya Pradesh - Couples Getaways",
+    },
+    {
+      name: "Pilgrimage Tours",
+      href: "/packages?type=pilgrimage",
+      title: "Religious Pilgrimage Tours - Sacred Sites in Madhya Pradesh",
+    },
+    {
+      name: "Family Vacations",
+      href: "/packages?type=family",
+      title: "Family Vacation Packages - Safe & Enjoyable Trips for All Ages",
+    },
+    {
+      name: "Weekend Getaways",
+      href: "/packages?type=weekend",
+      title: "Weekend Getaways from Indore - Short Trip Packages",
+    },
+  ];
 
   return (
     <footer className="bg-foreground text-white">
@@ -51,17 +104,23 @@ const destinations = [
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Company Info */}
           <div className="space-y-4">
-                    <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2">
+              <img
+                src="/logo1.png"
+                alt="Avantika Travels logo"
+                className="h-18 w-18 hover:scale-110 transition rounded shadow-2xl shadow-white/80"
+              />
+              <h3 className="text-2xl font-bold">
+                {siteData.name.split(" ")[0]}
+                <span className="text-primary">
+                  {siteData.name.split(" ")[1] || ""}
+                </span>
+              </h3>
+            </div>
 
-
-                      <img src="/logo1.png" alt="Avantika Travels logo" className="h-16 w-18 hover:scale-110 transition rounded shadow-2xl shadow-white/80" />
-            <h3 className="text-2xl font-bold">
-              {siteData.name.split(" ")[0]}
-              <span className="text-primary">{siteData.name.split(" ")[1] || ""}</span>
-            </h3>
-                      </div>  
-                      
-            <p className="text-gray-300 leading-relaxed">{siteData.description.slice(0, 150)}...</p>
+            <p className="text-gray-300 leading-relaxed">
+              {siteData.description.slice(0, 150)}...
+            </p>
             <div className="flex gap-4">
               <a
                 href={siteData.socialLinks.facebook}
@@ -95,10 +154,8 @@ const destinations = [
               >
                 <FiYoutube className="w-5 h-5" />
               </a>
+            </div>
           </div>
-
-         
-        </div>
 
           {/* Quick Links */}
           <div>
@@ -106,7 +163,10 @@ const destinations = [
             <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.name}>
-                  <Link href={link.href} className="text-gray-300 hover:text-primary transition-colors">
+                  <Link
+                    href={link.href}
+                    className="text-gray-300 hover:text-primary transition-colors"
+                  >
                     {link.name}
                   </Link>
                 </li>
@@ -120,7 +180,10 @@ const destinations = [
             <ul className="space-y-3">
               {destinations.map((link) => (
                 <li key={link.name}>
-                  <Link href={link.href} className="text-gray-300 hover:text-primary transition-colors">
+                  <Link
+                    href={link.href}
+                    className="text-gray-300 hover:text-primary transition-colors"
+                  >
                     {link.name}
                   </Link>
                 </li>
@@ -131,7 +194,9 @@ const destinations = [
           {/* Newsletter */}
           <div>
             <h4 className="text-lg font-semibold mb-4">Join Our Newsletter</h4>
-            <p className="text-gray-300 mb-4">Get exclusive access to travel deals, offers and adventure ideas.</p>
+            <p className="text-gray-300 mb-4">
+              Get exclusive access to travel deals, offers and adventure ideas.
+            </p>
             <form className="flex gap-2">
               <div className="flex-1 relative">
                 <FiMail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -175,12 +240,20 @@ const destinations = [
               </span>
             </div>
             <p className="text-gray-400 text-sm">
-              All rights reserved. © {siteData.name}. {new Date().getFullYear()}
+              All rights reserved. © Avantika Travels. {new Date().getFullYear()}
             </p>
           </div>
 
           <p className="text-center text-gray-400 text-sm mt-4">
-            Designed and developed by <a href="https://website-developers.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Aamin Patel</a>
+            Designed and developed by{" "}
+            <a
+              href="https://website-developers.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-primary text-primary transition-colors"
+            >
+              Website Developers
+            </a>
           </p>
         </div>
       </div>
@@ -192,5 +265,5 @@ const destinations = [
         style={{ zIndex: 1 }}
       />
     </footer>
-  )
+  );
 }
