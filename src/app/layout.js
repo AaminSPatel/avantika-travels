@@ -155,6 +155,7 @@ export default function RootLayout({ children }) {
             });
           `}
         </Script>
+        <script src="https://cdn.counter.dev/script.js" data-id="4118ced0-591b-4232-9a15-f6fd72ffe86a" data-utcoffset="6"></script>
       </head>
 
       <body className={`${poppins.variable} font-sans antialiased`}>
