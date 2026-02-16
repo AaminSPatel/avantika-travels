@@ -378,7 +378,7 @@ export default function PackageDetailsPage({ params }) {
             </div>
 
             {/* --- RIGHT COLUMN: STICKY BOOKING CARD --- */}
-            <div className="lg:col-span-4 w-screen">
+<div className="lg:col-span-4 w-full">
               <div className="flex flex-col md:flex-row stic w-full space-y-6 gap-8">
                 
                 {/* 1. Price & Booking Card */}
@@ -436,7 +436,7 @@ export default function PackageDetailsPage({ params }) {
                 </div>
 
                 {/* 2. Trust Badges */}
-                <div className="flex flex-col gap-6 w-1/2">
+                <div className="flex flex-col gap-6 md:w-1/2">
 
                 <div className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm space-y-4">
                     <h4 className="font-bold text-gray-800 mb-2">Why Book with Avantika Travels?</h4>
