@@ -66,6 +66,7 @@ export default function AdminLayout({ children }) {
     { href: '/admin/dashboard', label: 'Dashboard', icon: Home },
     { href: '/admin/packages', label: 'Packages', icon: Package },
     { href: '/admin/places', label: 'Places', icon: MapPin },
+    { href: '/admin/bookings', label: 'Bookings', icon: MapPin },
    { href: '/admin/blogs', label: 'Blogs', icon: FileText },
    { href: '/admin/contacts', label: 'Contacts', icon: MessageSquare },
       { href: '/admin/reviews', label: 'Reviews', icon: Star },

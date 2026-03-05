@@ -63,7 +63,13 @@ contactInfo: { email: "info@avanikatravels.com",
   theme: {
     primaryColor: "#f9307a",
     secondaryColor: "#ffffff"
-  }
+  },
+  // Route pricing: from one point to another with price
+  routePricing: [
+    { from: "Mumbai", to: "Ujjain", price: 6499 },
+    { from: "Pune", to: "Ujjain", price: 6499 },
+    { from: "Nagpur", to: "Ujjain", price: 6000 }
+  ]
 }
 
 export function SiteProvider({ children }) {
@@ -73,6 +79,7 @@ export function SiteProvider({ children }) {
   const [contacts, setContacts] = useState([])
   const [reviews, setReviews] = useState([])
   const [galleries, setGalleries] = useState([])
+  const [bookings, setBookings] = useState([])
   const [siteData, setSiteData] = useState(defaultSiteData)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -88,13 +95,14 @@ export function SiteProvider({ children }) {
       setError(null)
 
       // Fetch other data in parallel
-      const [placesRes, packagesRes, blogsRes, contactsRes, reviewsRes, galleriesRes] = await Promise.all([
+      const [placesRes, packagesRes, blogsRes, contactsRes, reviewsRes, galleriesRes, bookingsRes] = await Promise.all([
         axios.get(`${API_BASE_URL}/places`),
         axios.get(`${API_BASE_URL}/packages`),
         axios.get(`${API_BASE_URL}/blogs/published`),
         axios.get(`${API_BASE_URL}/contacts`),
         axios.get(`${API_BASE_URL}/reviews`),
-        axios.get(`${API_BASE_URL}/galleries`)
+        axios.get(`${API_BASE_URL}/galleries`),
+        axios.get(`${API_BASE_URL}/bookings`)
       ])
 
       setPlaces(placesRes.data)
@@ -103,6 +111,7 @@ export function SiteProvider({ children }) {
       setContacts(contactsRes.data)
       setReviews(reviewsRes.data)
       setGalleries(galleriesRes.data)
+      setBookings(bookingsRes.data)
 
       // Fetch website data separately - only update if successful
       try {
@@ -481,7 +490,7 @@ export function SiteProvider({ children }) {
       throw err
     }
   }
-
+  
   const createGallery = async (galleryData, token) => {
     try {
       let response
@@ -694,6 +703,8 @@ export function SiteProvider({ children }) {
   return "just now";
 }
 
+console.log('all data', packages, blogs, places, contacts, reviews, galleries);
+
   const value = {
     timeAgo,
     siteData,
@@ -701,6 +712,7 @@ export function SiteProvider({ children }) {
     packages,
     blogs,
     contacts,
+    bookings,
     reviews,
     loading,
     error,galleries,

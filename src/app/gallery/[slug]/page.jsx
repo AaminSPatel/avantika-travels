@@ -206,7 +206,7 @@ export default function GalleryDetailPage() {
                   <div className="mb-6">
                     <img 
                       src={siteData.logo} 
-                      alt="Company Logo" 
+                      alt="Avantika Travels Logo" 
                       className="h-16 md:h-20 mx-auto object-contain"
                     />
                   </div>
@@ -241,6 +241,7 @@ export default function GalleryDetailPage() {
                       <img
                         src={image.url || image}
                         alt={`${gallery.name} - Photo ${index + 1}`}
+                        loading="lazy"
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                       />
                     </motion.div>
@@ -309,6 +310,7 @@ export default function GalleryDetailPage() {
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     src={mainImage}
+                    loading="lazy"
                     className="max-w-full max-h-full rounded-3xl shadow-2xl object-contain bg-white"
                   />
                 </div>
@@ -338,7 +340,30 @@ export default function GalleryDetailPage() {
                   <div className="mt-10 p-6 bg-primary/5 rounded-3xl">
                     <p className="text-sm font-bold text-primary mb-1">Want a similar experience?</p>
                     <p className="text-xs text-gray-600 mb-4">Book your custom package for {activeTrip.location} today.</p>
-                    <button className="w-full py-3 bg-primary text-white font-bold rounded-xl shadow-lg shadow-primary/20">Enquire Now</button>
+                    <button
+                      onClick={() => {
+                        const phoneNumber = siteData?.contactInfo?.phone;
+                        console.log("phoneNumber", phoneNumber);
+
+                        const message = `Hello 👋
+
+I am interested in the "${activeTrip.name}" trip from Gallery.
+
+📍 Location: ${activeTrip.location}
+👤 Review: ${activeTrip.story}
+
+Please share more details about this package.
+
+Thank you!`;
+
+                        const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+                        window.open(whatsappURL, "_blank");
+                      }}
+                      className="w-full py-3 bg-primary text-white font-bold rounded-xl shadow-lg shadow-primary/20 hover:scale-[1.02] transition-all"
+                    >
+                      Enquire Now
+                    </button>
                   </div>
                 </div>
               </div>

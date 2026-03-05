@@ -136,7 +136,7 @@ const filteredGalleries =
                     <img
                       src={trip.images[0]?.url || trip.images[0]}
                       className="w-full h-full object-cover"
-                      alt=""
+                      alt={'We Traveled to' +trip.location + 'with Avantika Travels' +trip.story }
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
 
@@ -159,16 +159,14 @@ const filteredGalleries =
                         <img
                           src={img?.url || img}
                           className="w-full h-full object-cover"
-                          alt=""
+                          loading="lazy"
+                          alt={'We Traveled to' +trip.location + 'with Avantika Travels' +trip.story }
                         />
                       </div>
                     ))}
                   </div>
 
-                  {/* Story */}
-                  {/*    <p className="text-gray-500 text-sm italic line-clamp-2">
-          "{trip.story}"
-        </p> */}
+                 
                 </div>
 
                 {/* ================= DESKTOP LAYOUT ================= */}
@@ -308,6 +306,7 @@ const filteredGalleries =
                         <img
                           src={img.url || img}
                           className="w-full h-full object-cover"
+                          loading="lazy"
                         />
                       </motion.div>
                     ))}

@@ -3,7 +3,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { motion } from "framer-motion"
-import { FiStar, FiMapPin, FiClock, FiArrowRight } from "react-icons/fi"
+import {  FiMapPin, FiClock, FiArrowRight, FiCalendar } from "react-icons/fi"
 
 export default function PackageCard({ pkg, index = 0 }) {
   return (
@@ -14,8 +14,8 @@ export default function PackageCard({ pkg, index = 0 }) {
       transition={{ duration: 0.5, delay: index * 0.1 }}
       className="group"
     >
-      <Link href={`/packages/${pkg.slug}`}>
         <div className="relative rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-full">
+      <Link href={`/packages/${pkg.slug}`}>
           {/* Image */}
           <div className="relative h-52 overflow-hidden">
             <Image
@@ -48,8 +48,6 @@ export default function PackageCard({ pkg, index = 0 }) {
               {pkg.name}
             </h3>
 
-          
-
             <div className="flex items-center justify-between">
               <div>
                 <span className="text-primary font-bold text-lg">₹{pkg.price.toLocaleString()}</span>
@@ -63,8 +61,19 @@ export default function PackageCard({ pkg, index = 0 }) {
               <FiArrowRight className="w-5 h-5 text-primary opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
           </div>
-        </div>
       </Link>
+      {/* Book Now Button - Outside the Link to prevent nesting issues */}
+      <Link 
+        href={`/booking?packageId=${pkg._id}`}
+        className="mt-3 w-full block"
+      >
+        <button className="w-full bg-primary text-white py-2.5 px-4 rounded-lg font-semibold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
+          <FiCalendar className="w-4 h-4" />
+          Book Now
+        </button>
+      </Link>
+        </div>
+
     </motion.div>
   )
 }

@@ -39,7 +39,8 @@ export default function AdminWebsite() {
     theme: {
       primaryColor: '#000000',
       secondaryColor: '#ffffff'
-    }
+    },
+    routePricing: []
   })
 
   const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'
@@ -77,7 +78,8 @@ export default function AdminWebsite() {
         theme: {
           primaryColor: siteData.theme?.primaryColor || '#000000',
           secondaryColor: siteData.theme?.secondaryColor || '#ffffff'
-        }
+        },
+        routePricing: siteData.routePricing || []
       })
     } catch (error) {
       console.error('Error loading website data:', error)
@@ -621,6 +623,105 @@ export default function AdminWebsite() {
                   />
                 </div>
               </div>
+            </div>
+          </div>
+
+          {/* Route Pricing Section */}
+          <div className="bg-white rounded-xl shadow-md p-6">
+            <div className="flex items-center mb-6">
+              <MapPin className="w-5 h-5 text-blue-500 mr-3" />
+              <h2 className="text-xl font-bold text-black">Route Pricing</h2>
+            </div>
+            <p className="text-sm text-gray-600 mb-4">Add pickup to drop point routes with prices (e.g., Mumbai to Ujjain: ₹6499)</p>
+            
+            <div className="flex gap-3 mb-4">
+              <input
+                type="text"
+                placeholder="From (Pickup Point)"
+                value={formData.newRouteFrom || ''}
+                onChange={(e) => setFormData({ ...formData, newRouteFrom: e.target.value })}
+                className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
+              />
+              <span className="flex items-center text-gray-400">→</span>
+              <input
+                type="text"
+                placeholder="To (Drop Point)"
+                value={formData.newRouteTo || ''}
+                onChange={(e) => setFormData({ ...formData, newRouteTo: e.target.value })}
+                className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
+              />
+              <input
+                type="number"
+                placeholder="Price (₹)"
+                value={formData.newRoutePrice || ''}
+                onChange={(e) => setFormData({ ...formData, newRoutePrice: e.target.value })}
+                className="w-32 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
+              />
+              <button
+                type="button"
+                onClick={() => {
+                  if (formData.newRouteFrom && formData.newRouteTo && formData.newRoutePrice) {
+                    // Check if route already exists
+                    const existingIndex = formData.routePricing?.findIndex(
+                      r => r.from.toLowerCase() === formData.newRouteFrom.toLowerCase() && 
+                           r.to.toLowerCase() === formData.newRouteTo.toLowerCase()
+                    )
+                    
+                    let newRoutePricing
+                    if (existingIndex >= 0) {
+                      // Update existing route
+                      newRoutePricing = [...formData.routePricing]
+                      newRoutePricing[existingIndex].price = parseInt(formData.newRoutePrice)
+                    } else {
+                      // Add new route
+                      newRoutePricing = [...(formData.routePricing || []), { 
+                        from: formData.newRouteFrom, 
+                        to: formData.newRouteTo,
+                        price: parseInt(formData.newRoutePrice)
+                      }]
+                    }
+                    
+                    setFormData({
+                      ...formData,
+                      routePricing: newRoutePricing,
+                      newRouteFrom: '',
+                      newRouteTo: '',
+                      newRoutePrice: ''
+                    })
+                  }
+                }}
+                className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800"
+              >
+                Add
+              </button>
+            </div>
+            
+            <div className="space-y-2">
+              {formData.routePricing?.map((route, index) => (
+                <div key={index} className="flex items-center justify-between bg-gray-50 p-3 rounded-lg">
+                  <div>
+                    <span className="font-medium">{route.from}</span>
+                    <span className="mx-2 text-gray-400">→</span>
+                    <span className="font-medium">{route.to}</span>
+                    <span className="mx-2 text-gray-400">-</span>
+                    <span className="text-green-600 font-semibold">₹{route.price}</span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const newRoutes = [...formData.routePricing]
+                      newRoutes.splice(index, 1)
+                      setFormData({ ...formData, routePricing: newRoutes })
+                    }}
+                    className="text-red-500 hover:text-red-700"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+              ))}
+              {(!formData.routePricing || formData.routePricing.length === 0) && (
+                <p className="text-gray-500 text-sm">No routes added yet. Add routes like "Mumbai → Ujjain: ₹6499"</p>
+              )}
             </div>
           </div>
 

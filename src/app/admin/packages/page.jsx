@@ -37,7 +37,8 @@ export default function AdminPackages() {
     pickupPoint: '',
     dropPoint: '',
     tripDate: '',
-    images: [],
+       images: [],
+ upcomingDates: [],
     itinerary: [],
     inclusions: [],
     exclusions: [],
@@ -130,6 +131,7 @@ export default function AdminPackages() {
       pickupPoint: '',
       dropPoint: '',
       tripDate: '',
+      upcomingDates: [],
       images: [],
       itinerary: [],
       inclusions: [],
@@ -152,6 +154,7 @@ export default function AdminPackages() {
       pickupPoint: pkg.pickupPoint || '',
       dropPoint: pkg.dropPoint || '',
       tripDate: pkg.tripDate ? new Date(pkg.tripDate).toISOString().split('T')[0] : '',
+      upcomingDates: pkg.upcomingDates || [],
       images: pkg.images || [],
       itinerary: pkg.itinerary || [],
       inclusions: pkg.inclusions || [],
@@ -698,6 +701,55 @@ export default function AdminPackages() {
                         onChange={(e) => setFormData({ ...formData, tripDate: e.target.value })}
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
                       />
+                    </div>
+
+                    {/* Upcoming Dates */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Upcoming Dates (Group Packages)
+                      </label>
+                      <div className="flex gap-2 mb-3">
+                        <input
+                          type="date"
+                          value={formData.newUpcomingDate || ''}
+                          onChange={(e) => setFormData({ ...formData, newUpcomingDate: e.target.value })}
+                          className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (formData.newUpcomingDate) {
+                              const newDate = new Date(formData.newUpcomingDate);
+                              setFormData({
+                                ...formData,
+                                upcomingDates: [...(formData.upcomingDates || []), newDate],
+                                newUpcomingDate: ''
+                              });
+                            }
+                          }}
+                          className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors"
+                        >
+                          <Plus className="w-5 h-5" />
+                        </button>
+                      </div>
+                      <div className="space-y-2 max-h-40 overflow-y-auto p-2">
+                        {formData.upcomingDates?.map((date, index) => (
+                          <div key={index} className="flex items-center justify-between bg-gray-50 p-2 rounded">
+                            <span className="text-sm">{new Date(date).toLocaleDateString()}</span>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const newDates = [...formData.upcomingDates];
+                                newDates.splice(index, 1);
+                                setFormData({ ...formData, upcomingDates: newDates });
+                              }}
+                              className="text-red-600 hover:text-red-800"
+                            >
+                              <X className="w-4 h-4" />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
