@@ -1,114 +1,51 @@
 /**
- * Send WhatsApp message using Meta's WhatsApp Business Cloud API
- * This is called from the frontend after payment success
+ * AiSensy WhatsApp API Utilities - Admin Follow-up Feature
+ * Backend: localhost:5000/api/whatsapp/send
  */
 
-const WHATSAPP_API_URL = process.env.NEXT_PUBLIC_WHATSAPP_API_URL || '/api/whatsapp';
+const WHATSAPP_API_URL = `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/whatsapp/send`;
 
-/**
- * Send payment success message to customer
- * @param {string} phoneNumber - Customer's phone number
- * @param {object} bookingData - Booking details
- * @param {object} paymentData - Payment details
- * @returns {Promise<object>} - API response
- */
+/** Send payment success (existing) */
 export const sendPaymentSuccessMessage = async (phoneNumber, bookingData, paymentData) => {
   try {
     const response = await fetch(WHATSAPP_API_URL, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        phoneNumber,
-        bookingData,
-        paymentData,
-        type: 'payment_success'
-      })
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({phoneNumber, bookingData, paymentData, type: 'payment_success'})
     });
-
-    if (!response.ok) {
-      throw new Error('Failed to send WhatsApp message');
-    }
-
-    return await response.json();
+    if (!response.ok) throw new Error('Send failed');
+    return response.json();
   } catch (error) {
-    console.error('WhatsApp API Error:', error);
+    console.error('WhatsApp payment error:', error);
     throw error;
   }
 };
 
-/**
- * Send custom WhatsApp message
- * @param {string} phoneNumber - Customer's phone number
- * @param {string} message - Message text
- * @returns {Promise<object>} - API response
- */
-export const sendCustomMessage = async (phoneNumber, message) => {
+
+
+/** Admin follow-up messages for bookings */
+export const sendFollowupMessage = async (userName, packageName, packageDuration, pickupPoint, phoneNumber, bookingData = null) => {
   try {
+    const body = {userName, packageName, packageDuration, pickupPoint, phoneNumber,type: 'followup'};
+    if (bookingData) body.bookingData = bookingData;
+console.log('body', body);
+
     const response = await fetch(WHATSAPP_API_URL, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        phoneNumber,
-        message,
-        type: 'custom'
-      })
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(body)
     });
 
     if (!response.ok) {
-      throw new Error('Failed to send WhatsApp message');
+      const errData = await response.json();
+      throw new Error(errData.message || 'WhatsApp send failed');
     }
 
-    return await response.json();
+    const result = await response.json();
+    return result;
   } catch (error) {
-    console.error('WhatsApp API Error:', error);
+    console.error('Follow-up message error:', error);
     throw error;
   }
 };
 
-/**
- * Construct the payment success message
- */
-export const constructPaymentSuccessMessage = (bookingData, paymentData) => {
-  let message = `*🎉 Booking Confirmed! Thank You!*\n\n`;
-  message += `Dear ${bookingData.name},\n\n`;
-  message += `Your booking has been confirmed successfully! Here are your details:\n\n`;
-  
-  // Booking ID
-  message += `━━━━━━━━━━━━━━━━━━\n`;
-  message += `*📋 Booking ID:* ${bookingData.bookingId}\n`;
-  
-  // Package Details
-  if (bookingData.packageName) {
-    message += `*🧳 Package:* ${bookingData.packageName}\n`;
-    message += `*📅 Travel Date:* ${new Date(bookingData.travelDate).toLocaleDateString('en-IN')}\n`;
-    message += `*👥 Number of People:* ${bookingData.numberOfPeople}\n`;
-  }
-  
-  // Service Details
-  if (bookingData.serviceName) {
-    message += `*🛎️ Service:* ${bookingData.serviceName}\n`;
-  }
-  
-  // Payment Details
-  message += `\n━━━━━━━━━━━━━━━━━━\n`;
-  message += `*💳 Payment Details*\n`;
-  message += `*✅ Amount Paid:* ₹${paymentData.amountPaid.toLocaleString('en-IN')}\n`;
-  message += `*🆔 Payment ID:* ${paymentData.paymentId}\n`;
-  message += `*📆 Payment Date:* ${new Date(paymentData.paymentDate).toLocaleDateString('en-IN')}\n`;
-  
-  if (bookingData.balancePayment && bookingData.balancePayment > 0) {
-    message += `*💰 Balance to Pay:* ₹${bookingData.balancePayment.toLocaleString('en-IN')}\n`;
-  }
-  
-  message += `\n━━━━━━━━━━━━━━━━━━\n`;
-  message += `*📞 Contact Us*\n`;
-  message += `For any queries, please contact us.\n\n`;
-  message += `Thank you for choosing Avantika Travels!\n`;
-  message += `*Have a great journey! 🏃‍♂️💨*`;
-
-  return message;
-};

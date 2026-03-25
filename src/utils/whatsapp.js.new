@@ -1,0 +1,102 @@
+/**
+ * AiSensy WhatsApp API Utilities (Updated)
+ * Backend endpoint: /api/whatsapp/send
+ */
+
+const WHATSAPP_API_URL = process.env.NEXT_PUBLIC_API_URL + '/whatsapp/send' || 'http://localhost:5000/api/whatsapp/send';
+
+/**
+ * Send payment success notification (existing)
+ */
+export const sendPaymentSuccessMessage = async (phoneNumber, bookingData, paymentData) => {
+  try {
+    const response = await fetch(WHATSAPP_API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        phoneNumber,
+        bookingData,
+        paymentData,
+        type: 'payment_success'
+      })
+    });
+
+    if (!response.ok) throw new Error('WhatsApp send failed');
+    return await response.json();
+  } catch (error) {
+    console.error('WhatsApp Error:', error);
+    throw error;
+  }
+};
+
+/**
+ * Send custom message (existing)
+ */
+export const sendCustomMessage = async (phoneNumber, message) => {
+  try {
+    const response = await fetch(WHATSAPP_API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        phoneNumber,
+        message,
+        type: 'custom'
+      })
+    });
+
+    if (!response.ok) throw new Error('WhatsApp send failed');
+    return await response.json();
+  } catch (error) {
+    console.error('WhatsApp Error:', error);
+    throw error;
+  }
+};
+
+/**
+ * NEW: Send follow-up/admin message for bookings
+ * @param {string} phoneNumber 
+ * @param {string} message - Custom or template message
+ * @param {object} bookingData - Optional for templates
+ * @returns {Promise}
+ */
+export const sendFollowupMessage = async (phoneNumber, message, bookingData = null) => {
+  try {
+    const body = { phoneNumber, message, type: 'followup' };
+  log
+    if (bookingData) body.bookingData = bookingData;
+
+    const response = await fetch(WHATSAPP_API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+
+    if (!response.ok) {
+      const err = await response.json();
+      throw new Error(err.message || 'WhatsApp send failed');
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Follow-up WhatsApp Error:', error);
+    throw error;
+  }
+};
+
+/**
+ * Pre-defined follow-up templates
+ */
+export const followupTemplates = {
+  confirmation: (name, bookingId, travelDate) => 
+    `Hi ${name}! Your booking ${bookingId} is confirmed. Travel date: ${new Date(travelDate).toLocaleDateString('en-IN')}. Contact us for queries! - Avantika Travels`,
+
+  reminder: (name, travelDate) => 
+    `Reminder ${name}! Your trip is on ${new Date(travelDate).toLocaleDateString('en-IN')}. Please arrive 30min early. Safe journey! - Avantika`,
+
+  paymentReminder: (name, amount) => 
+    `Hi ${name}, friendly reminder for balance payment of ₹${amount.toLocaleString()}. Complete to avoid cancellation. Thanks! - Avantika Travels`,
+
+  custom: ''
+};
+
+

@@ -177,7 +177,7 @@ export default function Footer() {
 >
   <FiMapPin className="w-4 h-4 shrink-0" />
   <span itemProp="addressLocality">
-    {siteData.contactInfo.location}
+    {siteData.contactInfo.address}
   </span>
 </a>
 

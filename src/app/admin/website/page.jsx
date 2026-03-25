@@ -634,7 +634,7 @@ export default function AdminWebsite() {
             </div>
             <p className="text-sm text-gray-600 mb-4">Add pickup to drop point routes with prices (e.g., Mumbai to Ujjain: ₹6499)</p>
             
-            <div className="flex gap-3 mb-4">
+            <div className="flex flex-col md:flex-row gap-3 mb-4">
               <input
                 type="text"
                 placeholder="From (Pickup Point)"
@@ -642,7 +642,7 @@ export default function AdminWebsite() {
                 onChange={(e) => setFormData({ ...formData, newRouteFrom: e.target.value })}
                 className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
               />
-              <span className="flex items-center text-gray-400">→</span>
+              <span className=" hidden md:flex items-center text-gray-400">→</span>
               <input
                 type="text"
                 placeholder="To (Drop Point)"

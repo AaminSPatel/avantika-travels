@@ -105,7 +105,7 @@ export default function AboutPage() {
             >
               <div className="relative h-[450px] rounded-3xl overflow-hidden shadow-2xl">
                 <Image
-                  src="/pik4.avif"
+                  src="/ujjain.png"
                   alt="Avantika Travels Team managing tour in Ujjain"
                   fill
                   className="object-cover hover:scale-105 transition-transform duration-700"
@@ -123,20 +123,104 @@ export default function AboutPage() {
             <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
               <span className="text-primary font-bold tracking-wider uppercase text-sm">Our Journey</span>
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mt-2 mb-6">
-                Your Spiritual Travel Partners in Madhya Pradesh
+                Welcome to Avantika Travels
               </h2>
-              
-              <div className="prose prose-lg text-gray-600 mb-8">
-                <p>
-                  Welcome to <strong>Avantika Travels</strong>, the premier travel agency based in the holy city of Ujjain. Established with a vision to simplify pilgrimage and leisure travel in <strong>Madhya Pradesh</strong>, we have grown from a small taxi service provider to a full-fledged tour operator.
-                </p>
-                <p>
-                  Our expertise lies in curating seamless experiences for <strong>Mahakaleshwar Jyotirlinga Darshan</strong>, Omkareshwar Yatra, and heritage tours to Mandu and Maheshwar. Unlike online aggregators, we are a team of locals who understand the nuances of the Malwa region—from the best time for <em>Bhasma Aarti</em> to the shortest route to Indore Airport.
-                </p>
-                <p>
-                  Whether you need a <strong>luxury Innova Crysta for a family trip</strong> or a budget-friendly package for a group pilgrimage, Avantika Travels guarantees transparency, safety, and comfort at every mile.
-                </p>
-              </div>
+   <div className="text-gray-700 mb-12 space-y-10">
+
+  {/* Intro */}
+  <div className="prose prose-lg max-w-none">
+    <h2>Welcome to Avantika Travels</h2>
+    <p>
+      At <strong>Avantika Travels</strong>, we believe that travel is not just about reaching a destination—it is about creating unforgettable experiences and lifelong memories.
+    </p>
+    <p>
+      We provide well-planned travel solutions including pilgrimage tours, customized trips, hotel bookings, and transportation services—ensuring every journey is smooth and meaningful.
+    </p>
+
+    <div className="bg-gray-100 border-l-4 border-blue-500 p-4 rounded-lg">
+      <p className="font-semibold text-gray-800">
+        “Journeys You Can Trust.”
+      </p>
+    </div>
+  </div>
+
+  {/* Mission & Vision */}
+  <div className="grid md:grid-cols-2 gap-6">
+    <div className="bg-white shadow-md rounded-2xl p-6 border">
+      <h3 className="text-xl font-semibold mb-3">Our Mission</h3>
+      <p>
+        To provide safe, affordable, and well-organized travel experiences while maintaining high standards of service and customer satisfaction.
+      </p>
+    </div>
+
+    <div className="bg-white shadow-md rounded-2xl p-6 border">
+      <h3 className="text-xl font-semibold mb-3">Our Vision</h3>
+      <ul className="list-disc pl-5 space-y-2">
+        <li>Connect people with spiritual and cultural destinations</li>
+        <li>Use modern technology for seamless planning</li>
+        <li>Build long-term trust with travelers</li>
+        <li>Expand across India and internationally</li>
+      </ul>
+    </div>
+  </div>
+
+  {/* Services */}
+  <div>
+    <h3 className="text-xl font-semibold mb-4">What We Offer</h3>
+    <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+      {[
+        "Domestic Tour Packages",
+        "Pilgrimage Tours",
+        "Customized Trips",
+        "Hotel Bookings",
+        "Transportation Services",
+        "Complete Travel Management"
+      ].map((item, i) => (
+        <div key={i} className="bg-gray-50 border rounded-xl p-4 text-center shadow-sm">
+          <p className="font-medium">{item}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  {/* Founder */}
+  <div className="bg-white border rounded-2xl shadow-md p-6">
+    <h3 className="text-xl font-semibold mb-3">About the Founder</h3>
+    <p>
+      <strong>Gautam Rathore</strong> started Avantika Travels with a vision to create a reliable travel brand.
+    </p>
+    <p className="mt-2">
+      With hands-on experience in operations, itinerary planning, and customer support, he focuses on delivering quality service and meaningful travel experiences.
+    </p>
+  </div>
+
+  {/* Founder Vision */}
+  <div>
+    <h3 className="text-xl font-semibold mb-4">Founder’s Vision</h3>
+    <div className="grid sm:grid-cols-2 gap-4">
+      {[
+        "Expand tours across India",
+        "Build strong operational systems",
+        "Organize large group tours",
+        "Create a trusted travel brand"
+      ].map((item, i) => (
+        <div key={i} className="flex items-center gap-3 bg-gray-50 p-4 rounded-xl border">
+          <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+          <p>{item}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  {/* Goal */}
+  <div className="bg-blue-50 border border-blue-200 rounded-2xl p-6">
+    <h3 className="text-xl font-semibold mb-2">Our Goal</h3>
+    <p>
+      To grow into a customer-focused travel brand that combines traditional hospitality with modern technology and serves thousands of travelers every year.
+    </p>
+  </div>
+
+</div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[

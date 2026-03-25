@@ -72,7 +72,7 @@ export default function Header() {
           {/* CTA Button */}
           <div className="hidden lg:block">
             <Link
-              href="/packages"
+              href="/booking"
               className="bg-primary text-white px-4 py-2.5 rounded-full font-semibold hover:bg-primary/90 transition-colors flex"
             >
               Book Now
@@ -111,7 +111,7 @@ export default function Header() {
                   </Link>
                 ))}
                 <Link
-                  href="/packages"
+                  href="/booking"
                   className=" bg-primary text-white px-6 py-3 rounded-full font-semibold text-center hover:bg-primary/90 transition-colors"
                   onClick={() => setIsMenuOpen(false)}
                 >
