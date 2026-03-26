@@ -395,16 +395,29 @@ export default function BookingForm() {
   }, [packages]);
 
   useEffect(() => {
+    console.log('🌐 useEffect: packageIdFromUrl =', packageIdFromUrl);
     if (packageIdFromUrl) fetchPackageDetails(packageIdFromUrl);
   }, [packageIdFromUrl]);
 
   const fetchPackageDetails = async (id) => {
+    console.log('🔍 fetchPackageDetails called with ID:', id);
     setPackageLoading(true);
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api"}/packages/${id}`);
-      if (res.ok) setPackageData(await res.json());
+      console.log('📡 API Response status:', res.status, res.ok);
+      if (res.ok) {
+        const pkg = await res.json();
+        console.log('📦 Fetched package:', pkg._id, pkg.name);
+        console.log('✅ Setting states: selectedPackageId=', id, 'packageData._id=', pkg._id);
+        setPackageData(pkg);
+        setSelectedPackageId(id);
+        setPackageSearch(pkg.name);
+        setShowPackageDropdown(false);
+      } else {
+        console.error('❌ API failed:', res.status, await res.text());
+      }
     } catch (error) {
-      console.error(error);
+      console.error('💥 Fetch error:', error);
     } finally {
       setPackageLoading(false);
     }
@@ -516,6 +529,8 @@ export default function BookingForm() {
 
   const handleSubmit = async () => {
     setLoading(true);
+    console.log('🚀 SUBMIT DEBUG:', { selectedPackageId, packageDataId: packageData?._id, hasPackageId: !!packageIdFromUrl, condition: !!(selectedPackageId && packageData) });
+    
     try {
       const bookingData = {
         name: formData.name, email: formData.email, phone: formData.phone,
@@ -525,7 +540,7 @@ export default function BookingForm() {
         roomType: formData.roomType, groupPackage: formData.groupPackage,
         personalGroupPackage: formData.personalGroupPackage,
       };
-      if (selectedPackageId && packageData) {
+      if (selectedPackageId) {
         bookingData.packageId = selectedPackageId;
         bookingData.numberOfPeople = parseInt(formData.numberOfPeople);
         bookingData.travelDate = formData.travelDate;
@@ -548,7 +563,7 @@ export default function BookingForm() {
           console.error("WhatsApp send error:", whatsappError);
         }
         
-        setCurrentStep(3);
+       setCurrentStep(3);
       } else {
         alert("Booking failed. Please try again.");
       }
@@ -793,9 +808,7 @@ export default function BookingForm() {
                     <button onClick={downloadImage} disabled={generating} className="flex items-center justify-center gap-2 bg-pink-600 text-white px-6 sm:px-8 py-2 sm:py-3 rounded-xl font-semibold hover:bg-pink-700 text-sm sm:text-base">
                       {generating ? <><FiLoader className="animate-spin" /> Generating...</> : <><FiDownload /> Download Receipt</>}
                     </button>
-                    {/* <button onClick={sendWhatsAppMessage} className="flex items-center justify-center gap-2 bg-[#25D366] text-white px-6 sm:px-8 py-2 sm:py-3 rounded-xl font-semibold hover:bg-[#20bd59] text-sm sm:text-base">
-                      <FiMessageSquare /> Send on WhatsApp
-                    </button> */}
+                   
                     <Link href="/" className="px-6 sm:px-8 py-2 sm:py-3 bg-gray-100 rounded-xl font-semibold hover:bg-gray-200 text-center text-sm sm:text-base">Back to Home</Link>
                   </div>
                 </div>
