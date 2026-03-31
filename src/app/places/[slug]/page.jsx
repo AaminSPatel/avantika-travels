@@ -76,7 +76,7 @@ export default function PlaceDetailsPage({ params }) {
       "@type": "AggregateRating",
       "ratingValue": place.rating,
       "reviewCount": place.visitors ? Math.floor(place.visitors / 100) : 85
-    } : undefined,
+    } : 45,
     "isAccessibleForFree": place.entryFee === 0
   }
 
