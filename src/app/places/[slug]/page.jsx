@@ -72,11 +72,8 @@ export default function PlaceDetailsPage({ params }) {
       "opens": "06:00",
       "closes": "22:00"
     },
-    "aggregateRating": place.rating > 0 ? {
-      "@type": "AggregateRating",
-      "ratingValue": place.rating,
-      "reviewCount": place.visitors ? Math.floor(place.visitors / 100) : 85
-    } : 45,
+// Removed invalid aggregateRating schema (fake reviewCount)
+// Real reviews needed for compliance - omitted to fix Google validation error
     "isAccessibleForFree": place.entryFee === 0
   }
 

@@ -15,27 +15,47 @@ export default function PlacesPage() {
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 9
 
-  // JSON-LD Schema for Tourist Attractions List
-  const jsonLd = {
+  // Fixed: CollectionPage + BreadcrumbList (replaces invalid ItemList)
+  const collectionPageSchema = {
     "@context": "https://schema.org",
-    "@type": "ItemList",
+    "@type": "CollectionPage",
+    "@id": "https://avantikatravels.com/places",
     "name": "Top Tourist Places in Madhya Pradesh",
     "description": "List of best places to visit in MP including Ujjain, Omkareshwar, Pachmarhi, and Khajuraho.",
-    "itemListElement": places.slice(0, 10).map((place, index) => ({
-      "@type": "ListItem",
-      "position": index + 1,
-      "item": {
-        "@type": "TouristAttraction",
-        "name": place.title || place.name,
-        "description": place.description,
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": place.location,
-          "addressRegion": "Madhya Pradesh",
-          "addressCountry": "IN"
-        }
+    "url": "https://avantikatravels.com/places",
+    "mainEntity": {
+      "@type": "ItemList",
+      "numberOfItems": Math.min(places.length, 10),
+      "itemListElement": places.slice(0, 10).map((place, index) => ({
+        "@type": "ListItem",
+        "position": index + 1,
+        "url": `/places/${place.slug}`,
+        "name": place.title || place.name
+      }))
+    },
+    "provider": {
+      "@type": "TravelAgency",
+      "name": siteData.name || "Avantika Travels"
+    }
+  }
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://avantikatravels.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Places to Visit",
+        "item": "https://avantikatravels.com/places"
       }
-    }))
+    ]
   }
 
   // Pagination logic
@@ -59,7 +79,13 @@ export default function PlacesPage() {
         <link rel="canonical" href="https://avantikatravels.com/places" />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionPageSchema) }}
+          key="collection"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+          key="breadcrumb"
         />
       </Head>
 
