@@ -1,4 +1,5 @@
 import { Suspense } from "react"
+import Script from "next/script"
 import BookingForm from "./BookingForm"
 
 // SEO Metadata for Booking Page
@@ -38,7 +39,12 @@ export const metadata = {
     "temple darshan booking",
     "sacred sites tour booking",
     "religious tourism booking",
-    "central India travel booking"
+"central India travel booking",
+    "Ujjain Mahakal reservation",
+    "MP tour booking online",
+    "spiritual travel Ujjain",
+    "Mahakal darshan booking",
+    "Omkareshwar tour reservation"
   ],
   openGraph: {
     title: "Book Your Madhya Pradesh Tour Package | Avantika Travels",
@@ -93,8 +99,40 @@ export const metadata = {
 
 export default function BookingPage() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <BookingForm />
-    </Suspense>
+    <>
+      <Suspense fallback={<div>Loading...</div>}>
+        <BookingForm />
+      </Suspense>
+      <Script
+        id="booking-reservation-schema"
+        type="application/ld+json"
+        strategy="afterInteractive"
+      >
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Reservation",
+          "reservationFor": {
+            "@type": "Trip",
+            "name": "Madhya Pradesh Spiritual Tour Packages",
+            "description": "Customizable Ujjain Mahakal Darshan, Omkareshwar, and MP pilgrimage tours with Avantika Travels",
+            "provider": {
+              "@type": "TravelAgency",
+              "name": "Avantika Travels",
+              "url": "https://avantikatravels.com",
+              "telephone": "+91-8720006707",
+              "address": {
+                "@type": "PostalAddress",
+                "addressRegion": "Madhya Pradesh",
+                "addressCountry": "IN"
+              }
+            }
+          },
+          "underName": "Customer Name - Fill during booking",
+          "reservationStatus": "https://schema.org/ReservationPending",
+          "reservationId": "BOOKING-ID-GENERATED",
+          "url": "https://avantikatravels.com/booking"
+        })}
+      </Script>
+    </>
   )
 }

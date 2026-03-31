@@ -1,5 +1,6 @@
 "use client";
 
+import Script from "next/script"
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -12,6 +13,60 @@ import {
 import PageHeader from "@/components/ui/page-header";
 import { useSite } from "@/context/site-context";
 
+// SEO Metadata for Gallery Page
+export const metadata = {
+  title: "Gallery | Ujjain MP Travel Photos & Customer Memories | Avantika Travels",
+  description: "Explore beautiful photos from Ujjain Mahakal Darshan, Omkareshwar tours, and Madhya Pradesh spiritual journeys. See happy customer memories with Avantika Travels.",
+  keywords: [
+    "Ujjain gallery",
+    "Mahakal photos",
+    "Omkareshwar images",
+    "MP travel photos",
+    "customer travel memories",
+    "Ujjain taxi gallery",
+    "pilgrimage photos",
+    "Avantika Travels gallery",
+    "spiritual tour photos",
+    "Indore Ujjain tour images",
+    "Mahakal darshan pictures",
+    "travel memories Ujjain"
+  ],
+  openGraph: {
+    title: "Gallery | Ujjain & MP Travel Photos | Avantika Travels",
+    description: "Real photos from happy customers on Mahakal Darshan and Omkareshwar tours.",
+    url: "https://avantikatravels.com/gallery",
+    siteName: "Avantika Travels",
+    images: [
+      {
+        url: "/pik4.avif",
+        width: 1200,
+        height: 630,
+        alt: "Ujjain Travel Gallery - Avantika Travels"
+      }
+    ],
+    locale: "en_IN",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ujjain Travel Gallery | Avantika Travels",
+    description: "Customer photos from Mahakal Darshan and MP tours.",
+    images: ["/pik4.avif"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+    },
+  },
+  alternates: {
+    canonical: "https://avantikatravels.com/gallery",
+  },
+};
+
 export default function GalleryPage() {
   const [galleries, setGalleries] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -20,17 +75,17 @@ export default function GalleryPage() {
 
   const [activeTrip, setActiveTrip] = useState(null);
   const [mainImage, setMainImage] = useState("");
-const [selectedLocation, setSelectedLocation] = useState("All");
-const [isFilterOpen, setIsFilterOpen] = useState(false);
-const locations = [
-  "All",
-  ...new Set(galleries.map((trip) => trip.location)),
-];
+  const [selectedLocation, setSelectedLocation] = useState("All");
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const locations = [
+    "All",
+    ...new Set(galleries.map((trip) => trip.location)),
+  ];
 
-const filteredGalleries =
-  selectedLocation === "All"
-    ? galleries
-    : galleries.filter((trip) => trip.location === selectedLocation);
+  const filteredGalleries =
+    selectedLocation === "All"
+      ? galleries
+      : galleries.filter((trip) => trip.location === selectedLocation);
 
   useEffect(() => {
     const fetchGalleries = async () => {
@@ -54,6 +109,37 @@ const filteredGalleries =
     fetchGalleries();
   }, []);
 
+  // Dynamic ImageGallery Schema
+  useEffect(() => {
+    if (galleries.length > 0) {
+      const schema = {
+        "@context": "https://schema.org",
+        "@type": "ImageGallery",
+        "name": "Avantika Travels Customer Gallery - Ujjain MP Spiritual Tours",
+        "description": "Collection of customer-uploaded photos from Mahakal Darshan, Omkareshwar, and Madhya Pradesh pilgrimage trips with Avantika Travels",
+        "image": galleries.flatMap(g => 
+          g.images.slice(0, 10).map(img => img.url || img) // Limit to 10 per gallery for schema size
+        ),
+        "provider": {
+          "@type": "TravelAgency",
+          "name": "Avantika Travels",
+          "url": "https://avantikatravels.com/gallery"
+        }
+      };
+
+      const script = document.createElement('script');
+      script.type = 'application/ld+json';
+      script.textContent = JSON.stringify(schema);
+      document.head.appendChild(script);
+
+      return () => {
+        if (document.head.contains(script)) {
+          document.head.removeChild(script);
+        }
+      };
+    }
+  }, [galleries]);
+
   const openLightbox = (trip) => {
     setActiveTrip(trip);
     setMainImage(trip.images[0]?.url || trip.images[0]);
@@ -69,52 +155,52 @@ const filteredGalleries =
 
       <main className="bg-gray-50 min-h-screen py-16">
         <div className="container mx-auto px-4">
-         {/* ================= FILTER SECTION ================= */}
-<div className="mb-10">
+          {/* ================= FILTER SECTION ================= */}
+          <div className="mb-10">
 
-  {/* Filter Toggle Button */}
-  <button
-    onClick={() => setIsFilterOpen(!isFilterOpen)}
-    className="flex items-center gap-2 bg-white px-6 py-3 rounded-2xl shadow-md border border-gray-200 hover:shadow-lg transition-all"
-  >
-    <FiMapPin className="text-primary" />
-    <span className="font-semibold text-gray-800">
-      Filter by Location
-    </span>
-  </button>
-
-  {/* Collapsible Panel */}
-  <AnimatePresence>
-    {isFilterOpen && (
-      <motion.div
-        initial={{ height: 0, opacity: 0 }}
-        animate={{ height: "auto", opacity: 1 }}
-        exit={{ height: 0, opacity: 0 }}
-        transition={{ duration: 0.3 }}
-        className="overflow-hidden"
-      >
-        <div className="mt-6 flex flex-wrap gap-3">
-
-          {locations.map((location, index) => (
+            {/* Filter Toggle Button */}
             <button
-              key={index}
-              onClick={() => setSelectedLocation(location)}
-              className={`px-5 py-2 rounded-full text-sm font-semibold transition-all
+              onClick={() => setIsFilterOpen(!isFilterOpen)}
+              className="flex items-center gap-2 bg-white px-6 py-3 rounded-2xl shadow-md border border-gray-200 hover:shadow-lg transition-all"
+            >
+              <FiMapPin className="text-primary" />
+              <span className="font-semibold text-gray-800">
+                Filter by Location
+              </span>
+            </button>
+
+            {/* Collapsible Panel */}
+            <AnimatePresence>
+              {isFilterOpen && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="overflow-hidden"
+                >
+                  <div className="mt-6 flex flex-wrap gap-3">
+
+                    {locations.map((location, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setSelectedLocation(location)}
+                        className={`px-5 py-2 rounded-full text-sm font-semibold transition-all
               ${
                 selectedLocation === location
                   ? "bg-primary text-white shadow-lg shadow-primary/20"
                   : "bg-white border border-gray-200 text-gray-700 hover:bg-gray-100"
               }`}
-            >
-              {location}
-            </button>
-          ))}
+                      >
+                        {location}
+                      </button>
+                    ))}
 
-        </div>
-      </motion.div>
-    )}
-  </AnimatePresence>
-</div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
             {filteredGalleries.map((trip) => (
@@ -321,10 +407,10 @@ const filteredGalleries =
                     </p>
                     <button
                       onClick={() => {
-                        const phoneNumber = siteData.contactInfo?.phone; // 👈 apna number daalo
+                        const phoneNumber = siteData.contactInfo?.phone;
                         console.log("phoneNumber", phoneNumber);
 
-                        const message = `Hello 👋
+                       const message = `Hello 👋
 
 I am interested in the "${activeTrip.name}" trip from Gallery.
 
@@ -335,8 +421,7 @@ Please share more details about this package.
 
 Thank you!`;
 
-                        const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-
+const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
                         window.open(whatsappURL, "_blank");
                       }}
                       className="w-full py-3 bg-primary text-white font-bold rounded-xl shadow-lg shadow-primary/20 hover:scale-[1.02] transition-all"

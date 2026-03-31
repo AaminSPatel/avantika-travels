@@ -25,7 +25,8 @@ export async function GET(request) {
       { path: '/packages', freq: 'weekly', priority: 0.9 },
       { path: '/blogs', freq: 'daily', priority: 0.8 },
       { path: '/services', freq: 'monthly', priority: 0.7 },
-      { path: '/booking', freq: 'monthly', priority: 0.7 },
+      { path: '/booking', freq: 'weekly', priority: 0.8 },
+      { path: '/gallery', freq: 'weekly', priority: 0.8 },
       { path: '/privacy-policy', freq: 'yearly', priority: 0.3 },
       { path: '/terms-and-conditions', freq: 'yearly', priority: 0.3 },
     ];
@@ -41,10 +42,11 @@ export async function GET(request) {
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
       
-      const [placesRes, packagesRes, blogsRes] = await Promise.allSettled([
+      const [placesRes, packagesRes, blogsRes, galleriesRes] = await Promise.allSettled([
         fetch(`${apiUrl}/places`, { next: { revalidate: 3600 } }),
         fetch(`${apiUrl}/packages`, { next: { revalidate: 3600 } }),
-        fetch(`${apiUrl}/blogs`, { next: { revalidate: 3600 } })
+        fetch(`${apiUrl}/blogs`, { next: { revalidate: 3600 } }),
+        fetch(`${apiUrl}/galleries`, { next: { revalidate: 3600 } })
       ]);
 
       if (placesRes.status === 'fulfilled' && placesRes.value.ok) {
@@ -67,6 +69,19 @@ export async function GET(request) {
             lastmod: formatDate(pkg.updatedAt || pkg.createdAt),
             changefreq: 'weekly',
             priority: 0.8
+          });
+        });
+      }
+
+      // Dynamic Galleries
+      if (galleriesRes.status === 'fulfilled' && galleriesRes.value.ok) {
+        const galleries = await galleriesRes.value.json();
+        galleries.forEach(gallery => {
+          if (gallery.slug) allEntries.push({
+            loc: sanitizeUrl(`${baseUrl}/gallery/${gallery.slug}`),
+            lastmod: formatDate(gallery.updatedAt || gallery.createdAt),
+            changefreq: 'weekly',
+            priority: 0.7
           });
         });
       }
