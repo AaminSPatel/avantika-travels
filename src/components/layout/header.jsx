@@ -40,7 +40,7 @@ export default function Header() {
               {siteData.contactInfo.email}
             </a>
           </div>
-          <div className="text-white/90">{siteData.workingHours}</div>
+          <div className="text-white">{siteData.workingHours}</div>
         </div>
       </div>
 
@@ -83,7 +83,7 @@ export default function Header() {
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="lg:hidden p-2 text-foreground"
-            aria-label="Toggle menu"
+            aria-label= {isMenuOpen ? "Close menu" : "Open menu"}
           >
             {isMenuOpen ? <FiX className="w-6 h-6" /> : <FiMenu className="w-6 h-6" />}
           </button>

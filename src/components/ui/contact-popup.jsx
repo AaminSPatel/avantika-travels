@@ -168,6 +168,7 @@ export default function ContactPopup() {
                           name="subject"
                           value={formData.subject}
                           onChange={handleChange}
+                          area-lable='Subject to Inquiry'
                           required
                           className="w-full px-3 py-2 text-sm border border-border bg-background text-foreground rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent transition-all"
                         >

@@ -191,6 +191,7 @@ export default function ReviewsSection() {
           <span className="mr-4 text-foreground">Filter by rating:</span>
           <select
             value={filter}
+            area-label='Review filter by start count'
             onChange={(e) => setFilter(e.target.value)}
             className="p-2 border border-border rounded bg-background text-foreground"
           >
@@ -220,7 +221,7 @@ export default function ReviewsSection() {
                       </span>
                     </div>
                     <div>
-                      <h4 className="font-semibold text-card-foreground">{review.userName}</h4>
+                      <h3 className="font-semibold text-card-foreground">{review.userName}</h3>
                       <div className="flex items-center">
                         {renderStars(review.rating)}
                         <span className="ml-2 text-sm text-muted-foreground">({review.rating})</span>

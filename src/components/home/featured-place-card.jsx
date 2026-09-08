@@ -4,10 +4,6 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { 
   FiArrowRight, 
-  FiMapPin, 
-  FiPhone, 
-  FiCheckCircle, 
-  FiCalendar, 
   FiStar 
 } from "react-icons/fi";
 
@@ -41,7 +37,7 @@ const FEATURED_CARD_DATA = {
     href: "/contact",
   },
   phone: "+91 8720006707",
-  desktopImage: "/mahakal-coridor-ujjain.png",
+  desktopImage: "/mahakal-coridor-ujjain.avif",
   mobileImage: "/ujjain_omkareshwar_avantika_travels.avif",
   altText: "Avantika Travels - Best Mahakal Darshan & Madhya Pradesh Tour Packages",
 };

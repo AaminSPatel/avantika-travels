@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import PlaceCard from "@/components/ui/place-card";
+//import PlaceCard from "@/components/ui/place-card";
 import FeaturedPlaceCard from "@/components/home/featured-place-card";
 import { useSite } from "@/context/site-context";
 import { FiArrowRight, FiMapPin } from "react-icons/fi";

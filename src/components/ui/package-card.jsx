@@ -56,7 +56,7 @@ export default function PackageCard({ pkg, index = 0 }) {
 
             {/* Package Type Badge */}
             {pkg.category && (
-              <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-gray-800 text-xs font-semibold px-3 py-1 rounded-full">
+              <div className="absolute top-3 left-3 capitalize bg-white/90 backdrop-blur-sm text-gray-800 text-xs font-semibold px-3 py-1 rounded-full">
                 {pkg.category}
               </div>
             )}
@@ -74,13 +74,13 @@ export default function PackageCard({ pkg, index = 0 }) {
             </div>
 
             {/* Package Name */}
-            <h3 className="font-bold text-foreground mb-2 line-clamp-2 group-hover:text-primary transition-colors text-base">
+            <h3 className={`font-bold text-foreground capitalize mb-2 line-clamp-2 group-hover:text-primary transition-colors text-base`}>
               {pkg.name}
             </h3>
 
             {/* Package Description */}
             {pkg.description && (
-              <p className="text-sm text-gray-500 mb-3 line-clamp-2 leading-relaxed">
+              <p className={`text-sm text-gray-500 mb-3 ${pkg.type == "personal" ? 'line-clamp-2': 'sm:line-clamp-5 line-clamp-2'}  leading-relaxed`}>
                 {pkg.description}
               </p>
             )}
@@ -122,8 +122,10 @@ export default function PackageCard({ pkg, index = 0 }) {
           <Link 
             href={`/booking?packageId=${pkg._id}`}
             className="block"
+            area-label={`Book ${pkg.name} Package`}
           >
-            <button className="w-full bg-primary text-white py-2.5 px-4 rounded-lg font-semibold hover:bg-primary/90 transition-all duration-300 flex items-center justify-center gap-2 shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+            <button className="w-full bg-primary text-white py-2.5 px-4 rounded-lg font-semibold hover:bg-primary/90 transition-all duration-300 flex items-center justify-center gap-2 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+            >
               <FiCalendar className="w-4 h-4" />
               Book Now
             </button>

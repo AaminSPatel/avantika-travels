@@ -166,7 +166,7 @@ export default function PackagesPage() {
             )}
 
             {/* Package Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 min-h-[400px]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 min-h-[400px]">
               {paginatedPackages.map((pkg, index) => (
                 <PackageCard key={pkg._id || pkg.slug || index} pkg={pkg} index={index} />
               ))}
@@ -239,7 +239,7 @@ export default function PackagesPage() {
                                             </span>
                                         </td>
                                         <td className="p-4 text-right">
-                                            <Link href={`/packages/${pkg.slug}`} className="text-primary font-bold text-sm hover:underline flex items-center justify-end gap-1">
+                                            <Link href={`/packages/${pkg.slug}`} area-label={`Book ${pkg.name} Package`} className="text-primary font-bold text-sm hover:underline flex items-center justify-end gap-1">
                                                 View <FiArrowRight />
                                             </Link>
                                         </td>
@@ -295,7 +295,7 @@ export default function PackagesPage() {
                     Chat on WhatsApp
                  </a>
               </div>
-              <p className="mt-6 text-sm text-blue-200 opacity-80">
+              <p className="mt-6 text-sm text-blue-700 opacity-80">
                  Trusted by 5000+ Yatris • 24/7 Support during Trip
               </p>
                     </section>

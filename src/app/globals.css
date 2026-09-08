@@ -10,7 +10,7 @@
   --card-foreground: oklch(0.2 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.2 0 0);
-  --primary: var(--dynamic-primary, #f9307a);
+  --primary: var(--dynamic-primary, #dd2c5e);
   --primary-foreground: oklch(1 0 0);
   --primary-dark: oklch(0.5 0.25 0);
   --secondary: var(--dynamic-secondary, oklch(0.97 0 0));

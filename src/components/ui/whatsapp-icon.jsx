@@ -63,6 +63,7 @@ export default function WhatsAppIcon() {
       onClick={handleClick}
       whileHover={{ rotate: [0, -8, 8, 0] }}
       transition={{ duration: 0.4 }}
+       aria-label='WhatsApp Icon'
       className="
         relative p-3 rounded-full 
         bg-gradient-to-b from-green-400 to-green-700
