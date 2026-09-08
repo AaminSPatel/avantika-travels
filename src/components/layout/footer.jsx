@@ -241,7 +241,7 @@ export default function Footer() {
           </div>
 
           <p className="text-center text-gray-500 text-xs mt-6">
-            Designed with ❤️ by{" "}
+            Designed & Developed with ❤️ by{" "}
             <a
               href="https://business-sathi.vercel.app"
               target="_blank"

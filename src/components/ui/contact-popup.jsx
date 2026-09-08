@@ -95,125 +95,144 @@ export default function ContactPopup() {
               {/* Close Button */}
               <button
                 onClick={handleClose}
-                className="absolute top-4 right-4 w-8 h-8 bg-muted hover:bg-muted/80 rounded-full flex items-center justify-center transition-colors z-10"
+                area-label='Close Popup contact form'
+                className="absolute top-1 right-1 w-8 h-8 bg-muted hover:bg-muted/80 rounded-full flex items-center justify-center transition-colors z-10"
               >
                 <FiX className="w-5 h-5 text-muted-foreground" />
               </button>
 
               {/* Content */}
-              <div className="p-6">
-                <div className="text-center mb-6">
-                  <h2 className="text-2xl font-bold text-foreground mb-2">Get in Touch</h2>
-                  <p className="text-muted-foreground text-sm">Have questions? We'd love to hear from you!</p>
-                </div>
+              {/* Content */}
+<div className="p-6">
+  <div className="text-center mb-6">
+    <h2 className="text-xl font-bold text-foreground mb-2">
+      Plan Your Mahakal Yatra 🙏
+    </h2>
 
-                {isSubmitted ? (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="text-center py-8"
-                  >
-                    <div className="w-12 h-12 bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center mx-auto mb-3">
-                      <FiCheck className="w-6 h-6 text-green-600 dark:text-green-400" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-foreground mb-1">Message Sent!</h3>
-                    <p className="text-muted-foreground text-sm">We'll get back to you soon.</p>
-                  </motion.div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-4">
-                    {error && (
-                      <div className="p-3 bg-destructive/10 border border-destructive/20 rounded-lg">
-                        <p className="text-destructive text-sm">{error}</p>
-                      </div>
-                    )}
+    <p className="text-muted-foreground text-sm leading-relaxed max-w-[320px] mx-auto">
+     Need help with Darshan or your Ujjain trip? We’re here to help.
+    </p>
+  </div>
 
-                    <div className="grid grid-cols-2 gap-3">
-                      <div>
-                        <input
-                          type="text"
-                          name="name"
-                          value={formData.name}
-                          onChange={handleChange}
-                          required
-                          placeholder="Full Name *"
-                          className="w-full px-3 py-2 text-sm border border-border bg-background text-foreground rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent transition-all"
-                        />
-                      </div>
-                      <div>
-                        <input
-                          type="email"
-                          name="email"
-                          value={formData.email}
-                          onChange={handleChange}
-                          required
-                          placeholder="Email *"
-                          className="w-full px-3 py-2 text-sm border border-border bg-background text-foreground rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent transition-all"
-                        />
-                      </div>
-                    </div>
+  {isSubmitted ? (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      className="text-center py-8"
+    >
+      <div className="w-12 h-12 bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center mx-auto mb-3">
+        <FiCheck className="w-6 h-6 text-green-600 dark:text-green-400" />
+      </div>
 
-                    <div className="grid grid-cols-2 gap-3">
-                      <div>
-                        <input
-                          type="tel"
-                          name="phone"
-                          value={formData.phone}
-                          onChange={handleChange}
-                          placeholder="Phone"
-                          className="w-full px-3 py-2 text-sm border border-border bg-background text-foreground rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent transition-all"
-                        />
-                      </div>
-                      <div>
-                        <select
-                          name="subject"
-                          value={formData.subject}
-                          onChange={handleChange}
-                          area-lable='Subject to Inquiry'
-                          required
-                          className="w-full px-3 py-2 text-sm border border-border bg-background text-foreground rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent transition-all"
-                        >
-                          <option value="">Subject *</option>
-                          <option value="booking">Package Booking</option>
-                          <option value="inquiry">General Inquiry</option>
-                          <option value="custom">Custom Tour</option>
-                          <option value="feedback">Feedback</option>
-                          <option value="other">Other</option>
-                        </select>
-                      </div>
-                    </div>
+      <h3 className="text-lg font-semibold text-foreground mb-1">
+        Your Trip Request is Received! 🙏
+      </h3>
 
-                    <div>
-                      <textarea
-                        name="message"
-                        value={formData.message}
-                        onChange={handleChange}
-                        required
-                        rows={3}
-                        placeholder="Your message *"
-                        className="w-full px-3 py-2 text-sm border border-border bg-background text-foreground rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent transition-all resize-none"
-                      />
-                    </div>
+      <p className="text-muted-foreground text-sm">
+        Our travel team will contact you shortly to help plan your journey.
+      </p>
+    </motion.div>
+  ) : (
+    <form onSubmit={handleSubmit} className="space-y-4">
 
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full bg-primary text-primary-foreground font-medium py-2 px-4 rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-70 flex items-center justify-center gap-2 text-sm"
-                    >
-                      {isSubmitting ? (
-                        <>
-                          <span className="w-4 h-4 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin" />
-                          Sending...
-                        </>
-                      ) : (
-                        <>
-                          <FiSend className="w-4 h-4" />
-                          Send Message
-                        </>
-                      )}
-                    </button>
-                  </form>
-                )}
-              </div>
+      {error && (
+        <div className="p-3 bg-destructive/10 border border-destructive/20 rounded-lg">
+          <p className="text-destructive text-sm">
+            {error}
+          </p>
+        </div>
+      )}
+
+      {/* Name + Email */}
+      <div className="grid grid-cols-2 gap-3">
+        <input
+          type="text"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+          required
+          placeholder="Your Name *"
+          className="w-full px-3 py-2.5 text-sm border border-border bg-background text-foreground rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent transition-all"
+        />
+
+        <input
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+          placeholder="Email *"
+          className="w-full px-3 py-2.5 text-sm border border-border bg-background text-foreground rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent transition-all"
+        />
+      </div>
+
+      {/* Phone + Requirement */}
+      <div className="grid grid-cols-2 gap-3">
+        <input
+          type="tel"
+          name="phone"
+          value={formData.phone}
+          onChange={handleChange}
+          required
+          placeholder="WhatsApp / Phone *"
+          className="w-full px-3 py-2.5 text-sm border border-border bg-background text-foreground rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent transition-all"
+        />
+
+        <select
+          name="subject"
+          value={formData.subject}
+          onChange={handleChange}
+          required
+          aria-label="How can we help?"
+          className="w-full px-3 py-2.5 text-sm border border-border bg-background text-foreground rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent transition-all"
+        >
+          <option value="">How can we help? *</option>
+          <option value="mahakal-darshan">Mahakal Darshan</option>
+          <option value="omkareshwar">Omkareshwar Trip</option>
+          <option value="ujjain-trip">Booking</option>
+          <option value="package-booking">Tour Package</option>
+          <option value="custom-tour">Custom Tour</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      {/* Message */}
+      <textarea
+        name="message"
+        value={formData.message}
+        onChange={handleChange}
+        required
+        rows={3}
+        placeholder="Tell us about your trip — travel date, number of people, or anything you need help with..."
+        className="w-full px-3 py-2.5 text-sm border border-border bg-background text-foreground rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent transition-all resize-none"
+      />
+
+      {/* CTA */}
+      <button
+        type="submit"
+        disabled={isSubmitting}
+        className="w-full bg-primary text-primary-foreground font-medium py-3 px-4 rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-70 flex items-center justify-center gap-2 text-sm"
+      >
+        {isSubmitting ? (
+          <>
+            <span className="w-4 h-4 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin" />
+            Planning Your Trip...
+          </>
+        ) : (
+          <>
+            <FiSend className="w-4 h-4" />
+            Get Trip Assistance
+          </>
+        )}
+      </button>
+
+      <p className="text-center text-[11px] text-muted-foreground">
+        ✓ Quick response &nbsp; • &nbsp; No obligation
+      </p>
+
+    </form>
+  )}
+</div>
             </motion.div>
           </motion.div>
         </>
